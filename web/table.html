@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.parquet {
+  width: 500px;
+  height: 500px;
+  background-image:url('image/parquet.jpeg');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  display:flex;
+}
+
+#tableUne {
+  position:relative;
+  width: 100px;
+  height:100px;
+  margin-left:50px;
+  margin-top:50px;
+  display:block-inline;
+  background-image: url('image/table_bleuC41.png');
+  background-size: 100px 100px;
+  background-repeat: no-repeat;
+  border-radius: 50% 50%;
+}
+#tableUne:hover {
+  background-image: url('image/table_bleuF41.png');
+  background-size: 100px 100px;
+  background-repeat: no-repeat;
+  display:block-inline;
+}
+
+
+#tableDeux {
+  position:relative;
+  width: 130px;
+  height:100px;
+  margin-left:50px;
+  margin-top:50px;
+  display:block-inline;
+  background-image: url('image/table_bleuC61.png');
+  background-size: 130px 100px;
+  background-repeat: no-repeat;
+}
+#tableDeux:hover {
+  background-image: url('image/table_bleuF61.png');
+  background-size: 130px 100px;
+  background-repeat: no-repeat;
+  display:block-inline;
+}
+
+
+</style>
+</head>
+<body>
+
+<h2>Fade in Overlay</h2>
+<p>Hover over the image to see the effect.</p>
+
+<div class="parquet">
+    <a href="" id="tableUne" title="Corelangs link"></a>
+    <a href="" id="tableDeux" title="Corelangs link"></a>
+    <a href="" id="tableTrois" title="Corelangs link"></a>
+    <a href="" id="tableQuatre" title="Corelangs link"></a>
+    <a href="" id="tableCinq" title="Corelangs link"></a>
+    <a href="" id="tableSix" title="Corelangs link"></a>
+    <a href="" id="tableSept" title="Corelangs link"></a>
+  </div>
+
+
+</div>
+
+
+</body>
+
+
+</html>
+
+
+
+<!--
+
+<div class="container">
+  <img src="image/image_test_table_1.png" alt="Avatar" class="image">
+  <div class="overlay">
+    <img src="image/image_test_table_2.png" alt="Avatar" class="image">
+  </div>
+</div>
+
+
+.image {
+  display:flex;
+  position: relative;
+  top:0px;
+  left:0px;
+  width: 50px;
+  height: auto;
+}
+
+.overlay {
+  display:flex;
+  position: relative;
+  top:0px;
+  left:0px;
+  width: 50px;
+  height: auto;
+  opacity: 0;
+  transition: .5s ease;
+}
+
+.container:hover .overlay {
+  opacity: 1;
+}
+
+
+
+
+
+<style>
+
+  .principale
+  {
+    position: relative;
+    width: 50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+  }
+
+
+  .resa_table
+  {
+    display:block;
+    border : 5px;
+    width:700px;
+    height:700px;
+    background-image : url("image/parquet.jpeg");
+  }
+
+  .image_table_1
+  {
+    position:relative;
+    top:30;
+    left:30;
+    display:block;
+  }
+
+  .overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    transition: .5s ease;
+    background-color: #008CBA;
+  }
+
+  .container:hover .overlay {
+    opacity: 1;
+  }
+
+  .text {
+    color: white;
+    font-size: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    text-align: center;
+  }
+
+</style>
+
+
+<body>
+
+  <h2>Fade in Overlay</h2>
+  <p>Hover over the image to see the effect.</p>
+
+<div class="principale">
+  <div class="resa_table">
+
+    <img class="image_table_1" src="image/image_test_table.png" alt="table_1" height="60" width="60" object-fit: cover>
+    <div class="overlay">
+      <div class="text">Hello World</div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+
+
+
+  -->
