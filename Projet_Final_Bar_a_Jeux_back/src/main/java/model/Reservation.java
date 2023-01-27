@@ -9,7 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Reservation {
@@ -20,10 +22,14 @@ public class Reservation {
 	private LocalDate dateRes;
 	private LocalTime heureRes;
 	private int nbPersonne;
-	@Transient
+	@ManyToOne
+	@JoinColumn(name = "table_id")
 	private Table table;
-	@Transient
+	@OneToMany(mappedBy = "reservation")
 	private List<CommandeConso> commandeConsos = new ArrayList<>();
+	@ManyToOne
+	@JoinColumn(name = "client_id")
+	private Client client;
 	
 	public Reservation() {
 	}

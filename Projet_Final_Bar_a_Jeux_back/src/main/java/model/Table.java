@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Table {
@@ -17,12 +17,13 @@ public class Table {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@Enumerated(EnumType.STRING)
+	@ManyToOne
+	@JoinColumn(name = "event_id")
 	private Evenement evenement;
 	private int nbPersonne;
 	private int idTable;
-	@Transient
-	private List<Client> clients = new ArrayList<>();
+	@OneToMany(mappedBy = "table")
+	private List<Reservation> reservations = new ArrayList<>();
 	
 	public Table() {
 	}
@@ -68,15 +69,15 @@ public class Table {
 	}
 
 
-	public List<Client> getClients() {
-		return clients;
+	public List<Reservation> getReservations() {
+		return reservations;
 	}
 
 
-	public void setClients(List<Client> clients) {
-		this.clients = clients;
+	public void setReservations(List<Reservation> reservations) {
+		this.reservations = reservations;
 	}
-	
+
 	
 	
 	
