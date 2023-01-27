@@ -25,7 +25,7 @@ public class Client extends Compte {
 	private LocalDate dateNaissance;
 	@OneToMany(mappedBy = "client")
 	private List<Reservation> reservations = new ArrayList<>();
-	@OneToMany(mappedBy = "client_id")
+	@OneToMany(mappedBy = "client")
 	private List<CommandeJeu> commandeJeux = new ArrayList<>();
 	@Enumerated(EnumType.STRING)
 	private Civilite civilite;
