@@ -1,5 +1,7 @@
 package model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -19,9 +22,8 @@ public class CommandeConso {
 	private int id;
 	@Column
 	private int qtité;
-	@ManyToOne
-	@JoinColumn(name="conso")
-	private Conso conso;
+	@OneToMany(mappedBy="commandeConso")
+	private List<Conso> consos;
 	@ManyToOne
 	@JoinColumn(name="reservation")
 	private Reservation reservation;
@@ -43,12 +45,23 @@ public class CommandeConso {
 	public void setQtité(int qtité) {
 		this.qtité = qtité;
 	}
-	public Conso getConso() {
-		return conso;
+
+	public List<Conso> getConsos() {
+		return consos;
 	}
-	public void setConso(Conso conso) {
-		this.conso = conso;
+
+	public void setConsos(List<Conso> consos) {
+		this.consos = consos;
 	}
+
+	public Reservation getReservation() {
+		return reservation;
+	}
+
+	public void setReservation(Reservation reservation) {
+		this.reservation = reservation;
+	}
+	
 	
 	
 	
