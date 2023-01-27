@@ -7,7 +7,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 @Entity
 @Table(name="Conso")
@@ -22,8 +23,9 @@ public class Conso {
 	private String nom;
 	@Column(name="type_conso")
 	@Enumerated(EnumType.STRING)
-	private TypeConso Conso;
-	@OneToMany(mappedBy="conso")
+	private TypeConso conso;
+	@ManyToOne
+	@JoinColumn(name="CommandeConso")
 	private CommandeConso commandeConso;
 	
 	
