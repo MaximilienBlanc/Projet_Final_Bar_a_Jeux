@@ -7,7 +7,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 @Entity
 @Table(name="Conso")
@@ -22,8 +22,8 @@ public class Conso {
 	private String nom;
 	@Column(name="type_conso")
 	@Enumerated(EnumType.STRING)
-	private TypeConso conso;
-	@Transient
+	private TypeConso Conso;
+	@OneToMany(mappedBy="conso")
 	private CommandeConso commandeConso;
 	
 	

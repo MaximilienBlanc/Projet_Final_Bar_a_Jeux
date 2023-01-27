@@ -5,8 +5,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
+
 
 @Entity
 @Table(name="Commande_conso")
@@ -17,8 +19,12 @@ public class CommandeConso {
 	private int id;
 	@Column
 	private int qtité;
-	@Transient
+	@ManyToOne
+	@JoinColumn(name="conso")
 	private Conso conso;
+	@ManyToOne
+	@JoinColumn(name="reservation")
+	private Reservation reservation;
 	
 	
 	public CommandeConso() {
