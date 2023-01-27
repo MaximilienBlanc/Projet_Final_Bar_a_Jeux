@@ -68,11 +68,11 @@ public class AchatJeu {
 		this.jeu = jeu;
 	}
 
-	public Commandejeu getCommandeJeu() {
+	public CommandeJeu getCommandeJeu() {
 		return commandeJeu;
 	}
 
-	public void setCommandeJeu(Commandejeu commandeJeu) {
+	public void setCommandeJeu(CommandeJeu commandeJeu) {
 		this.commandeJeu = commandeJeu;
 	}
 	
