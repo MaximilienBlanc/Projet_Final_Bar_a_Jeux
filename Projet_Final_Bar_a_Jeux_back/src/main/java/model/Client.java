@@ -9,6 +9,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
 @Entity
@@ -22,13 +23,12 @@ public class Client extends Compte {
 	@Column(length = 50)
 	private String tel;
 	private LocalDate dateNaissance;
-	@Transient
+	@OneToMany(mappedBy = "client")
 	private List<Reservation> reservations = new ArrayList<>();
-	@Transient
+	@OneToMany(mappedBy = "client_id")
 	private List<CommandeJeu> commandeJeux = new ArrayList<>();
 	@Enumerated(EnumType.STRING)
 	private Civilite civilite;
-	
 	
 	public Client() {
 		super();
