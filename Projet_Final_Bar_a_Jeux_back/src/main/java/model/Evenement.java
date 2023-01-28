@@ -11,7 +11,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Evenement {
@@ -27,7 +27,7 @@ public class Evenement {
 	private String nomJeu;
 	@Enumerated(EnumType.STRING)
 	private TypeEvent typeEvent;
-	@Transient
+	@OneToMany(mappedBy = "evenement")
 	private List<Table> tables = new ArrayList<>();
 	
 	public Evenement() {
