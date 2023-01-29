@@ -15,6 +15,7 @@ public class Jeu {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	private String nom;
 	private int nbJoueurMin;
 	private int nbJoueurMax;
 	private int ageMin;
@@ -36,9 +37,10 @@ public class Jeu {
 		super();
 	}
 
-	public Jeu(int nbJoueurMin, int nbJoueurMax, int ageMin, int duree, String editeur, String annee, double prix,
+	public Jeu(String nom, int nbJoueurMin, int nbJoueurMax, int ageMin, int duree, String editeur, String annee, double prix,
 			String image, String typeJeu, String description, int stock) {
 		super();
+		this.nom = nom;
 		this.nbJoueurMin = nbJoueurMin;
 		this.nbJoueurMax = nbJoueurMax;
 		this.ageMin = ageMin;
@@ -162,6 +164,14 @@ public class Jeu {
 
 	public void setAchatJeux(List<AchatJeu> achatJeux) {
 		this.achatJeux = achatJeux;
+	}
+
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
 	}
 	
 	
