@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,7 +21,8 @@ public class CommandeJeu {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+	@Enumerated(EnumType.STRING)
+	private Statut statut;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "client_id")
 	private Client client;
@@ -30,6 +33,15 @@ public class CommandeJeu {
 	public CommandeJeu() {
 		super();
 	}
+	
+	
+
+	public CommandeJeu(Statut statut) {
+		super();
+		this.statut = statut;
+	}
+
+
 
 	public int getId() {
 		return id;
@@ -53,6 +65,16 @@ public class CommandeJeu {
 
 	public void setAchatJeux(List<AchatJeu> achatJeux) {
 		this.achatJeux = achatJeux;
+	}
+
+
+	public Statut getStatut() {
+		return statut;
+	}
+
+
+	public void setStatut(Statut statut) {
+		this.statut = statut;
 	}
 	
 	

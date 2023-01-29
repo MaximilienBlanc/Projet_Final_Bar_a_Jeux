@@ -13,7 +13,7 @@ import model.CommandeJeu;
 import model.Jeu;
 import repository.ICommandeJeuRepository;
 
-public class CommandeJeuJpa implements ICommandeJeuRepository{
+public class CommandeJeuRepositoryJpa implements ICommandeJeuRepository{
 
 	@Override
 	public List<CommandeJeu> findAll() {
@@ -162,6 +162,6 @@ public class CommandeJeuJpa implements ICommandeJeuRepository{
 		}	
 	}
 		
-	}
-
 }
+
+
