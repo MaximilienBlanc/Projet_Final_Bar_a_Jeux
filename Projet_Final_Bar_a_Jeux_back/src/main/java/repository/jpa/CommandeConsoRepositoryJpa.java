@@ -3,6 +3,14 @@ package repository.jpa;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
+
+import context.Application;
+import model.CommandeConso;
+import repository.ICommandeConsoRepository;
+
 public class CommandeConsoRepositoryJpa implements ICommandeConsoRepository {
 	
 	public List<CommandeConso> findAll() {
@@ -40,7 +48,7 @@ public class CommandeConsoRepositoryJpa implements ICommandeConsoRepository {
 	
 	public CommandeConso findById(Integer id) {
 		
-		Commandeonso conso = null;
+		CommandeConso commandeConso = null;
 		EntityManager em = null;
 		EntityTransaction tx = null;
 		try {
@@ -51,7 +59,7 @@ public class CommandeConsoRepositoryJpa implements ICommandeConsoRepository {
 			
 			TypedQuery<CommandeConso> query = em.createQuery("select com from commandeConso com where com.id = :id" , CommandeConso.class);
 			query.setParameter("id", id);						
-			conso = query.getSingleResult();	
+			commandeConso = query.getSingleResult();	
 
 			tx.commit();
 		} catch (Exception e) {
@@ -65,11 +73,11 @@ public class CommandeConsoRepositoryJpa implements ICommandeConsoRepository {
 			}
 		}
 
-		return commandesConso;
+		return commandeConso;
 	}
 
 	
-	public CommandeConso save(CommmandeConso commandeConso) {
+	public CommandeConso save(CommandeConso commandeConso) {
 		
 		EntityManager em = null;
 		EntityTransaction tx = null;
@@ -107,7 +115,7 @@ public class CommandeConsoRepositoryJpa implements ICommandeConsoRepository {
 			tx = em.getTransaction();
 			tx.begin();
 
-			TypedQuery<CommmandeConso> query = em.createQuery("delete from commandeConso com where com.id = :id", CommandeConso.class);
+			TypedQuery<CommandeConso> query = em.createQuery("delete from commandeConso com where com.id = :id", CommandeConso.class);
 			query.setParameter("id",id);
 			query.executeUpdate();
 
