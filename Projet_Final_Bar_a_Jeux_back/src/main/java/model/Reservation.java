@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Reservation {
@@ -30,6 +31,8 @@ public class Reservation {
 	@ManyToOne
 	@JoinColumn(name = "client_id")
 	private Client client;
+	@OneToOne
+	private Jeu jeu;
 	
 	public Reservation() {
 	}
