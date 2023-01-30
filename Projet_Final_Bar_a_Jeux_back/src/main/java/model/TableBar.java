@@ -10,9 +10,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
-public class Table {
+@Table(name = "table_bdd")
+public class TableBar {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +27,7 @@ public class Table {
 	@OneToMany(mappedBy = "table")
 	private List<Reservation> reservations = new ArrayList<>();
 	
-	public Table() {
+	public TableBar() {
 	}
 
 

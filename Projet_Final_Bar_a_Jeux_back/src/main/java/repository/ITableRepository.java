@@ -1,7 +1,7 @@
 package repository;
 
-import model.Table;
+import model.TableBar;
 
-public interface ITableRepository extends IRepository<Table, Integer>{
+public interface ITableRepository extends IRepository<TableBar, Integer>{
 
 }

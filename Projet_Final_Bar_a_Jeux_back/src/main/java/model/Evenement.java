@@ -28,7 +28,7 @@ public class Evenement {
 	@Enumerated(EnumType.STRING)
 	private TypeEvent typeEvent;
 	@OneToMany(mappedBy = "evenement")
-	private List<Table> tables = new ArrayList<>();
+	private List<TableBar> tables = new ArrayList<>();
 	
 	public Evenement() {
 	}
@@ -93,11 +93,11 @@ public class Evenement {
 		this.typeEvent = typeEvent;
 	}
 
-	public List<Table> getTables() {
+	public List<TableBar> getTables() {
 		return tables;
 	}
 
-	public void setTables(List<Table> tables) {
+	public void setTables(List<TableBar> tables) {
 		this.tables = tables;
 	}
 	

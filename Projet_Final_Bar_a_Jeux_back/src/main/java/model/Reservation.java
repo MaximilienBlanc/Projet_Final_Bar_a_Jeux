@@ -10,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -25,8 +24,8 @@ public class Reservation {
 	private LocalTime heureRes;
 	private int nbPersonne;
 	@ManyToOne
-	@JoinColumn(name = "table_id")
-	private Table table;
+	@JoinColumn(name = "tableBar_id")
+	private TableBar table;
 	@OneToMany(mappedBy = "reservation")
 	private List<CommandeConso> commandeConsos = new ArrayList<>();
 	@ManyToOne
@@ -47,11 +46,11 @@ public class Reservation {
 		this.id = id;
 	}
 
-	public Table getTable() {
+	public TableBar getTable() {
 		return table;
 	}
 
-	public void setTable(Table table) {
+	public void setTable(TableBar table) {
 		this.table = table;
 	}
 

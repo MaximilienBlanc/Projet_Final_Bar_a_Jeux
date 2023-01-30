@@ -2,8 +2,6 @@ package test;
 
 import context.Application;
 import model.Jeu;
-import repository.ICompteRepository;
-import repository.IEvenementRepository;
 import repository.IJeuRepository;
 
 public class Test {
@@ -11,9 +9,9 @@ public class Test {
 	public static void main(String[] args) {
 		
 		
-		ICompteRepository compteRepo = Application.getInstance().getCompteRepo();
+		//ICompteRepository compteRepo = Application.getInstance().getCompteRepo();
 		IJeuRepository jeuRepo = Application.getInstance().getJeuRepo();
-		IEvenementRepository evenementRepo = Application.getInstance().getEvenementRepo();
+		//IEvenementRepository evenementRepo = Application.getInstance().getEvenementRepo();
 		
 		Jeu jeu1 = new Jeu("6 qui prend !",2,10,10,20,"Gigamic","2007",14.9,"\\Projet_Final\\bdd\\image_jeu\\6-qui-prend.png","logique,réflexes",6, "qui prend, la version française de 6 nimmt! le jeu de cartes de Wolfgang Kramer qui porte parfois le nom de 6 qui perd ! Ces drôles de cartes valent de 1 à 7 «têtes de boeufs» chacune. Votre but : en récolter le moins possible. Pas de temps mort, tout le monde joue simultanément, règles simples, jusqu'à 10 joueurs, un mélange de réflexion, de stratégie et de hasard rend ce jeu très addictif.");
 		jeu1 = jeuRepo.save(jeu1);

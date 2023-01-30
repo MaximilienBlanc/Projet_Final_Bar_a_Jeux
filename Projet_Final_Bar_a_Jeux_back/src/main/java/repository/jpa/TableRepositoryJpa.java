@@ -8,15 +8,15 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
 import context.Application;
-import model.Table;
+import model.TableBar;
 import repository.ITableRepository;
 
 public class TableRepositoryJpa implements ITableRepository{
 
 	@Override
-	public List<Table> findAll() {
+	public List<TableBar> findAll() {
 		
-		List<Table> tables = new ArrayList<>();
+		List<TableBar> tables = new ArrayList<>();
 
 		EntityManager em = null;
 		EntityTransaction tx = null;
@@ -26,7 +26,7 @@ public class TableRepositoryJpa implements ITableRepository{
 			tx = em.getTransaction();
 			tx.begin();
 
-			TypedQuery<Table> query = em.createQuery("select tab from Table tab", Table.class);
+			TypedQuery<TableBar> query = em.createQuery("select tab from TableBar tab", TableBar.class);
 
 			tables = query.getResultList();
 
@@ -47,9 +47,9 @@ public class TableRepositoryJpa implements ITableRepository{
 
 	
 	@Override
-	public Table findById(Integer id) {
+	public TableBar findById(Integer id) {
 		
-		Table table = null;
+		TableBar table = null;
 		EntityManager em = null;
 		EntityTransaction tx = null;
 		try {
@@ -58,7 +58,7 @@ public class TableRepositoryJpa implements ITableRepository{
 			tx = em.getTransaction();
 			tx.begin();
 			
-			TypedQuery<Table> query = em.createQuery("select tab from Table tab where tab.id = :id" , Table.class);
+			TypedQuery<TableBar> query = em.createQuery("select tab from TableBar tab where tab.id = :id" , TableBar.class);
 			query.setParameter("id", id);						
 			table = query.getSingleResult();	
 
@@ -78,7 +78,7 @@ public class TableRepositoryJpa implements ITableRepository{
 	}
 
 	@Override
-	public Table save(Table table) {
+	public TableBar save(TableBar table) {
 		
 		EntityManager em = null;
 		EntityTransaction tx = null;
@@ -116,7 +116,7 @@ public class TableRepositoryJpa implements ITableRepository{
 			tx = em.getTransaction();
 			tx.begin();
 
-			TypedQuery<Table> query = em.createQuery("delete from Table tab where tab.id = :id", Table.class);
+			TypedQuery<TableBar> query = em.createQuery("delete from Table tab where tab.id = :id", TableBar.class);
 			query.setParameter("id",id);
 			query.executeUpdate();
 
@@ -135,7 +135,7 @@ public class TableRepositoryJpa implements ITableRepository{
 	}
 
 	@Override
-	public void delete(Table table) {
+	public void delete(TableBar table) {
 		
 		EntityManager em = null;
 		EntityTransaction tx = null;
