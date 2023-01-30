@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -32,6 +33,7 @@ public class Reservation {
 	@JoinColumn(name = "client_id")
 	private Client client;
 	@OneToOne
+	@JoinColumn(name ="jeu_id")
 	private Jeu jeu;
 	
 	public Reservation() {
@@ -84,6 +86,23 @@ public class Reservation {
 	public void setNbPersonne(int nbPersonne) {
 		this.nbPersonne = nbPersonne;
 	}
+
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
+
+	public Jeu getJeu() {
+		return jeu;
+	}
+
+	public void setJeu(Jeu jeu) {
+		this.jeu = jeu;
+	}
+	
 	
 	
 
