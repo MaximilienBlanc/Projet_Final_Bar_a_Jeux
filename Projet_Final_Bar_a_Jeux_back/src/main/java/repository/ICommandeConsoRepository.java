@@ -2,6 +2,6 @@ package repository;
 
 import model.CommandeConso;
 
-public interface ICommandeConsoRepository extends IRepository<CommandeConso, Integer>{
+public interface ICommandeConsoRepository extends IRepository<CommandeConso, Integer> {
 
 }

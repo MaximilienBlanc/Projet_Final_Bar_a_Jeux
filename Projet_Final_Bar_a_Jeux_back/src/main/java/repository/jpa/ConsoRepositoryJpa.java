@@ -3,7 +3,15 @@ package repository.jpa;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConsoRepositoryJpa implements IConsoRepository{
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
+
+import context.Application;
+import model.Conso;
+import repository.IConsoRepository;
+
+public class ConsoRepositoryJpa implements IConsoRepository {
 
 		
 		public List<Conso> findAll() {
