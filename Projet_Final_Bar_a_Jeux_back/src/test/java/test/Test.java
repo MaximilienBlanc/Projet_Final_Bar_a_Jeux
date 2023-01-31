@@ -1,18 +1,19 @@
 package test;
 
-import context.Application;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import model.Jeu;
 import repository.IJeuRepository;
 
 public class Test {
 
 	public static void main(String[] args) {
+		ClassPathXmlApplicationContext ctx=new ClassPathXmlApplicationContext("application-context.xml");
+		System.out.println(ctx);
 		
+		IJeuRepository jeuRepo = ctx.getBean(IJeuRepository.class); 
 		
-		//ICompteRepository compteRepo = Application.getInstance().getCompteRepo();
-		IJeuRepository jeuRepo = Application.getInstance().getJeuRepo();
-		//IEvenementRepository evenementRepo = Application.getInstance().getEvenementRepo();
-		
+
 		Jeu jeu1 = new Jeu("6 qui prend !",2,10,10,20,"Gigamic","2007",14.9,"\\Projet_Final\\bdd\\image_jeu\\6-qui-prend.png","logique,réflexes",6, "qui prend, la version française de 6 nimmt! le jeu de cartes de Wolfgang Kramer qui porte parfois le nom de 6 qui perd ! Ces drôles de cartes valent de 1 à 7 «têtes de boeufs» chacune. Votre but : en récolter le moins possible. Pas de temps mort, tout le monde joue simultanément, règles simples, jusqu'à 10 joueurs, un mélange de réflexion, de stratégie et de hasard rend ce jeu très addictif.");
 		jeu1 = jeuRepo.save(jeu1);
 		
@@ -42,11 +43,9 @@ public class Test {
 		
 		Jeu jeu10 = new Jeu("Citadelles - Classique",2,8,10,30,"Edge Entertainment","2000",15.9,"\\Projet_Final\\bdd\\image_jeu\\citadelles-classique.png","stratégie,tactique",3,"Dans Citadelles, votre but est de bâtir une cité prestigieuse avant que vos adversaires ne parviennent à construire la leur. Considéré comme l'un des grands classiques du jeu de société moderne, Citadelles est un jeu de cartes alliant bluff, diplomatie, stratégie et construction !");
 		jeu10 = jeuRepo.save(jeu10);
-		
-		
+			
 		Jeu jeu11 = new Jeu("Clank !",2,4,12,45,"Renegade Game Studio","2017",49.5,"\\Projet_Final\\bdd\\image_jeu\\clank.png","stratégie,tactique",5,"Les souterrains sous la Tour du Dragon sont réputés pour être l’endroit le plus dangereux du Royaume. Seuls les roublards les plus intrépides peuvent s’y faufiler pour voler le Dragon et en revenir vivants pour raconter leur histoire. C’est ainsi que vous et vos semblables avez mis en jeu votre réputation de voleurs pour relever le défi. Au cours du chemin, vous allez recruter des alliés et mettre la main sur des trésors. Mais un faux pas et… CLANK ! Le bruit risque d’attirer l’attention du dragon, et plus d’artefacts seront volés, plus cela augmentera sa fureur ! Soyez plus discret que vos compères, si vous espérez vous en sortir vivant… Un très bon jeu de deck building. Rapide à prendre en main et à installer pour un max de fun !");
 		jeu11 = jeuRepo.save(jeu11);
-		
 		
 		Jeu jeu12 = new Jeu("Codenames",2,8,14,15,"Czech Games Edition","2015",22.5,"\\Projet_Final\\bdd\\image_jeu\\codenames.png","Enquête,enigme",4,"Codenames est un jeu d’association d’idées pour 2 à 8 joueurs (voire plus !) dans lequel, répartis en deux équipes, vous incarnez soit un maître-espion, soit un agent en mission. Pour retrouver sous quel nom de code se cachent vos informateurs, écoutez bien les indices donnés par les deux Maîtres-Espions et prenez garde à ne pas contacter un informateur ennemi, ou pire… le redoutable assassin ! Un jeu d’association d’idées fin et original qui a fait sensation à l’étranger et en France !");
 		jeu12 = jeuRepo.save(jeu12);
@@ -174,7 +173,7 @@ public class Test {
 		
 		
 		
-		
+		ctx.close();
 		
 		
 	}
