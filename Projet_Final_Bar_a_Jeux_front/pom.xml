@@ -11,27 +11,23 @@
 			<artifactId>javax.servlet-api</artifactId>
 			<version>4.0.1</version>
 		</dependency>
-
-
-		<dependency>
-			<groupId>formation-sopra</groupId>
-			<artifactId>ProjetFinal-back</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
-	</dependencies>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${springVersion}</version>
+		</dependency>
 
+	</dependencies>
 	<properties>
 		<maven.compiler.target>17</maven.compiler.target>
 		<maven.compiler.source>17</maven.compiler.source>
+		<springVersion>5.3.25</springVersion>
 	</properties>
-
-
 	<build>
 		<plugins>
 			<plugin>
@@ -41,5 +37,4 @@
 			</plugin>
 		</plugins>
 	</build>
-  
 </project>
