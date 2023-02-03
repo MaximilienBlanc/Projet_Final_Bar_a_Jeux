@@ -19,10 +19,10 @@ public class Reservation {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 	private LocalDate dateRes;
 	private LocalTime heureRes;
-	private int nbPersonne;
+	private Integer nbPersonne;
 	@ManyToOne
 	@JoinColumn(name = "tableBar_id")
 	private TableBar table;
@@ -36,6 +36,16 @@ public class Reservation {
 	private Jeu jeu;
 	
 	public Reservation() {
+	}
+
+	public Reservation(LocalDate dateRes, LocalTime heureRes, Integer nbPersonne, TableBar table, Client client,
+			Jeu jeu) {
+		this.dateRes = dateRes;
+		this.heureRes = heureRes;
+		this.nbPersonne = nbPersonne;
+		this.table = table;
+		this.client = client;
+		this.jeu = jeu;
 	}
 
 	public int getId() {
@@ -78,11 +88,11 @@ public class Reservation {
 		this.heureRes = heureRes;
 	}
 
-	public int getNbPersonne() {
+	public Integer getNbPersonne() {
 		return nbPersonne;
 	}
 
-	public void setNbPersonne(int nbPersonne) {
+	public void setNbPersonne(Integer nbPersonne) {
 		this.nbPersonne = nbPersonne;
 	}
 
