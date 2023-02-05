@@ -25,7 +25,7 @@ public class TableService {
 		
 		private void checkNotNull(TableBar table) {
 			if (table == null) {
-				throw new TableException("formateur obligatoire");
+				throw new TableException("table obligatoire");
 			}
 		}
 		
