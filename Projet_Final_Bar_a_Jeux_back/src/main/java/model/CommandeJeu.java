@@ -23,6 +23,7 @@ public class CommandeJeu {
 	private int id;
 	@Enumerated(EnumType.STRING)
 	private Statut statut;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "client_id")
 	private Client client;
