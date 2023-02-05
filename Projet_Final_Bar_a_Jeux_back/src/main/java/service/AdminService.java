@@ -16,7 +16,13 @@ public class AdminService {
 	@Autowired 
 	private IAdminRepository adminRepo;
 	
-	public Admin create(Admin compteAdmin) {
+	public Admin create(String mail, String password) {
+		Admin compteAdmin = new Admin(mail, password);
+		return save(compteAdmin);
+	}
+	
+	
+	public Admin save(Admin compteAdmin) {
 		checkNotNull(compteAdmin);
 		checkConstraint(compteAdmin);
 		return adminRepo.save(compteAdmin);
