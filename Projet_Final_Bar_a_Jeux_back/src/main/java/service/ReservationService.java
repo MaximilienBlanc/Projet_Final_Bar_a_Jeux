@@ -1,6 +1,10 @@
 package service;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +29,7 @@ public class ReservationService {
 		
 		private void checkNotNull(Reservation resa) {
 			if (resa == null) {
-				throw new ReservationException("formateur obligatoire");
+				throw new ReservationException("réservation obligatoire");
 			}
 		}
 		
@@ -42,9 +46,7 @@ public class ReservationService {
 			if (resa.getNbPersonne() == 0) {
 				throw new ReservationException("personne obligatoire");
 			}
-			if (resa.getJeu() == null) {
-				throw new ReservationException("personne obligatoire");
-			}
+			// donner un jeu n'est pas obligatoire
 		}
 		
 		private void checkId(Integer id) {
@@ -67,6 +69,23 @@ public class ReservationService {
 			delete(findById(id));
 		}
 		
+		public Reservation update(Reservation resa) {
+			checkNotNull(resa);
+			checkExist(resa);
+			checkConstraint(resa);
+			Reservation resaEnBase = findById(resa.getId());
+			resaEnBase.setDateRes(resa.getDateRes());
+			resaEnBase.setHeureRes(resa.getHeureRes());
+			resaEnBase.setClient(resa.getClient());
+			resaEnBase.setNbPersonne(resa.getNbPersonne());
+			// donner un jeu n'est pas obligatoire
+			if (resa.getJeu() != null) {
+				resaEnBase.setJeu(resa.getJeu());
+			}
+			return resaRepo.save(resaEnBase);
+		}
+		
+		
 		public Reservation findById(Integer id) {
 			checkId(id);
 			return resaRepo.findById(id).orElseThrow(ReservationException::new);
@@ -74,6 +93,28 @@ public class ReservationService {
 		
 		public List<Reservation> findAll(){
 			return resaRepo.findAll();
+		}
+		
+		public List<LocalDate> findAllDisableDate(int nbPersonne){
+			Map<LocalDate, Integer> dates = resaRepo.findAllDate(nbPersonne);
+			List<LocalDate> dateDisables = new ArrayList<>();
+			for (var date : dates.entrySet()) {
+				if (date.getValue()==40) {
+					dateDisables.add(date.getKey());
+				}
+			}
+			return dateDisables;
+		}
+		
+		public List<LocalTime> findAllDisableCrenau(LocalDate dateRes){
+			Map<LocalTime, Integer> heures = resaRepo.findAllCrenauParDate(dateRes);
+			List<LocalTime> heureDisables = new ArrayList<>();
+			for (var heure : heures.entrySet()) {
+				if (heure.getValue()==40) {
+					heureDisables.add(heure.getKey());
+				}
+			}
+			return heureDisables;
 		}
 
 }

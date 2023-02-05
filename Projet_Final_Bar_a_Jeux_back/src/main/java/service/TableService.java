@@ -25,7 +25,7 @@ public class TableService {
 		
 		private void checkNotNull(TableBar table) {
 			if (table == null) {
-				throw new TableException("formateur obligatoire");
+				throw new TableException("table obligatoire");
 			}
 		}
 		
@@ -56,6 +56,20 @@ public class TableService {
 
 		public void delete(Integer id) {
 			delete(findById(id));
+		}
+		
+		public TableBar update(TableBar table) {
+			checkNotNull(table);
+			checkExist(table);
+			checkConstraint(table);
+			TableBar tableEnBase = findById(table.getId());
+			tableEnBase.setIdTable(table.getIdTable());
+			tableEnBase.setNbPersonne(table.getNbPersonne());
+			// donner un jeu n'est pas obligatoire
+			if (table.getEvenement() != null) {
+				tableEnBase.setEvenement(table.getEvenement());
+			}
+			return tableRepo.save(tableEnBase);
 		}
 		
 		public TableBar findById(Integer id) {
