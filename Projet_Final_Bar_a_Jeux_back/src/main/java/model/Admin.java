@@ -10,6 +10,11 @@ public class Admin extends Compte {
 	public Admin() {
 		super();
 	}
+	
+	public Admin(String mail, String password) {
+		super(mail, password);
+	}
 
+	
 	
 }
