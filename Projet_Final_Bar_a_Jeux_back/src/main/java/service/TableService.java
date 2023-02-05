@@ -58,6 +58,20 @@ public class TableService {
 			delete(findById(id));
 		}
 		
+		public TableBar update(TableBar table) {
+			checkNotNull(table);
+			checkExist(table);
+			checkConstraint(table);
+			TableBar tableEnBase = findById(table.getId());
+			tableEnBase.setIdTable(table.getIdTable());
+			tableEnBase.setNbPersonne(table.getNbPersonne());
+			// donner un jeu n'est pas obligatoire
+			if (table.getEvenement() != null) {
+				tableEnBase.setEvenement(table.getEvenement());
+			}
+			return tableRepo.save(tableEnBase);
+		}
+		
 		public TableBar findById(Integer id) {
 			checkId(id);
 			return tableRepo.findById(id).orElseThrow(TableException::new);
