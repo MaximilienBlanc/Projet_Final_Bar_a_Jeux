@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import exception.ClientException;
 import exception.IdException;
+import model.Civilite;
 import model.Client;
 import repository.IClientRepository;
 
@@ -16,7 +17,12 @@ public class ClientService {
 	@Autowired 
 	private IClientRepository clientRepo;
 	
-	public Client create(Client compteClient) {
+	public Client create(String mail, String password, String nom, String prenom, String tel, Civilite civilite) {
+		Client compteClient = new Client(mail, password, nom, prenom, tel, civilite);
+		return save(compteClient);
+	}
+	
+	public Client save(Client compteClient) {
 		checkNotNull(compteClient);
 		checkConstraint(compteClient);
 		return clientRepo.save(compteClient);
