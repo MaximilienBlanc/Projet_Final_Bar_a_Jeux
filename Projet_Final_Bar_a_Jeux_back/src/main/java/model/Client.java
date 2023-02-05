@@ -32,7 +32,14 @@ public class Client extends Compte {
 	public Client() {
 		super();
 	}
-
+	
+	public Client(String mail, String password, String nom, String prenom, String tel, Civilite civilite) {
+		super(mail, password);
+		this.nom = nom;
+		this.prenom = prenom;
+		this.tel = tel;
+		this.civilite = civilite;
+	}
 
 	public String getNom() {
 		return nom;
