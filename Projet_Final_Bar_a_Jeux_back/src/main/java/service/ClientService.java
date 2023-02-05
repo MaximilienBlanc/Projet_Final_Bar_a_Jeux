@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import exception.ClientException;
 import exception.IdException;
-import model.Admin;
 import model.Client;
 import repository.IClientRepository;
 
