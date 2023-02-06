@@ -15,8 +15,7 @@ import model.Civilite;
 import model.Client;
 import service.ClientService;
 
-@Transactional
-@SpringJUnitConfig(AppConfig.class)
+
 class MainTest {
 
 	@Autowired
@@ -240,17 +239,17 @@ class MainTest {
 //		TableBar table3 = new TableBar(6,3);
 //		table3 = tableRepo.save(table3);
 //		
-////		TableBar table4 = new TableBar(4,4);
-////		table4 = tableRepo.save(table4);
-////		
-////		TableBar table5 = new TableBar(4,5);
-////		table5 = tableRepo.save(table5);
-////		
-////		TableBar table6 = new TableBar(6,6);
-////		table6 = tableRepo.save(table6);
-////		
-////		TableBar table7 = new TableBar(8,7);
-////		table7 = tableRepo.save(table7);
+//		TableBar table4 = new TableBar(4,4);
+//		table4 = tableRepo.save(table4);
+//		
+//		TableBar table5 = new TableBar(4,5);
+//		table5 = tableRepo.save(table5);
+//		
+//		TableBar table6 = new TableBar(6,6);
+//		table6 = tableRepo.save(table6);
+//		
+//		TableBar table7 = new TableBar(8,7);
+//		table7 = tableRepo.save(table7);
 //		
 //		Client client1 = new Client("client1@test.fr","client1","client1","client2","0600000001",Civilite.homme);
 //		client1 = clientRepo.save(client1);
