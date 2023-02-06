@@ -1,6 +1,7 @@
 package service;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -114,16 +115,21 @@ public class ReservationService {
 			}
 			return dateDisables;
 		}
-//		
-//		public List<LocalTime> findAllDisableCrenau(LocalDate dateRes){
-//			Map<LocalTime, Integer> heures = resaRepo.findAllCrenauParDate(dateRes);
-//			List<LocalTime> heureDisables = new ArrayList<>();
-//			for (var heure : heures.entrySet()) {
-//				if (heure.getValue()==40) {
-//					heureDisables.add(heure.getKey());
-//				}
-//			}
-//			return heureDisables;
-//		}
+
+		public List<LocalTime> findAllDisableHeureparDate(int nbPersonne){
+			Collection<LocalTime> heures = resaRepo.findAllCrenauParDate(nbPersonne);
+//			List<LocalDate> dateUnique = resaRepo.findUniqueDate(nbPersonne);
+			// récupération des valeurs uniques des dates dans la variable dates provenant de l'ensemble des réservations
+			List<LocalTime> heureUnique = heures.stream().distinct().collect(Collectors.toList());
+			List<LocalTime> heureDisables = new ArrayList<>();
+			for (var heure : heureUnique) {
+				// compte le nombre de fois que la date "date" apparait dans la liste "dates"
+				int occurrences = Collections.frequency(heures, heure);
+				if (occurrences==2) {
+					heureDisables.add(heure);
+				}
+			}
+			return heureDisables;
+		}
 
 }
