@@ -1,6 +1,11 @@
 package service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -94,16 +99,21 @@ public class ReservationService {
 			return resaRepo.findAll();
 		}
 		
-//		public List<LocalDate> findAllDisableDate(int nbPersonne){
-//			Map<LocalDate, Integer> dates = resaRepo.findAllDate(nbPersonne);
-//			List<LocalDate> dateDisables = new ArrayList<>();
-//			for (var date : dates.entrySet()) {
-//				if (date.getValue()==40) {
-//					dateDisables.add(date.getKey());
-//				}
-//			}
-//			return dateDisables;
-//		}
+		public List<LocalDate> findAllDisableDate(int nbPersonne){
+			Collection<LocalDate> dates = resaRepo.findAllDate(nbPersonne);
+//			List<LocalDate> dateUnique = resaRepo.findUniqueDate(nbPersonne);
+			// récupération des valeurs uniques des dates dans la variable dates provenant de l'ensemble des réservations
+			List<LocalDate> dateUnique = dates.stream().distinct().collect(Collectors.toList());
+			List<LocalDate> dateDisables = new ArrayList<>();
+			for (var date : dateUnique) {
+				// compte le nombre de fois que la date "date" apparait dans la liste "dates"
+				int occurrences = Collections.frequency(dates, date);
+				if (occurrences==2) {
+					dateDisables.add(date);
+				}
+			}
+			return dateDisables;
+		}
 //		
 //		public List<LocalTime> findAllDisableCrenau(LocalDate dateRes){
 //			Map<LocalTime, Integer> heures = resaRepo.findAllCrenauParDate(dateRes);

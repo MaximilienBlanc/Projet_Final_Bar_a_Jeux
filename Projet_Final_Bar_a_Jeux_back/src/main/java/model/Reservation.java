@@ -16,7 +16,7 @@ import javax.persistence.OneToOne;
 
 @Entity
 public class Reservation {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -25,37 +25,38 @@ public class Reservation {
 	private Integer nbPersonne;
 	@ManyToOne
 	@JoinColumn(name = "tableBar_id")
-	private TableBar table;
+	private TableBar tableBar;
 	@OneToMany(mappedBy = "reservation")
 	private List<CommandeConso> commandeConsos = new ArrayList<>();
 	@ManyToOne
 	@JoinColumn(name = "client_id")
 	private Client client;
 	@OneToOne
-	@JoinColumn(name ="jeu_id")
+	@JoinColumn(name = "jeu_id")
 	private Jeu jeu;
-	
+
 	public Reservation() {
 	}
 
-	public Reservation(LocalDate dateRes, LocalTime heureRes, Integer nbPersonne, TableBar table, Client client,
+	public Reservation(LocalDate dateRes, LocalTime heureRes, Integer nbPersonne, TableBar tableBar, Client client,
 			Jeu jeu) {
 		this.dateRes = dateRes;
 		this.heureRes = heureRes;
 		this.nbPersonne = nbPersonne;
-		this.table = table;
+		this.tableBar = tableBar;
 		this.client = client;
 		this.jeu = jeu;
 	}
 
-	public Reservation(LocalDate dateRes, LocalTime heureRes, Integer nbPersonne, TableBar table, Client client) {
+	public Reservation(LocalDate dateRes, LocalTime heureRes, Integer nbPersonne, TableBar tableBar, Client client) {
 		this.dateRes = dateRes;
 		this.heureRes = heureRes;
 		this.nbPersonne = nbPersonne;
-		this.table = table;
-		this.client = client;;
+		this.tableBar = tableBar;
+		this.client = client;
+		;
 	}
-	
+
 	public Integer getId() {
 		return id;
 	}
@@ -65,11 +66,11 @@ public class Reservation {
 	}
 
 	public TableBar getTable() {
-		return table;
+		return tableBar;
 	}
 
-	public void setTable(TableBar table) {
-		this.table = table;
+	public void setTable(TableBar tableBar) {
+		this.tableBar = tableBar;
 	}
 
 	public List<CommandeConso> getCommandeConsos() {
@@ -119,8 +120,5 @@ public class Reservation {
 	public void setJeu(Jeu jeu) {
 		this.jeu = jeu;
 	}
-	
-	
-	
 
 }
