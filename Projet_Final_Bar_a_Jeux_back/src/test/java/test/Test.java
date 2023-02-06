@@ -1,9 +1,19 @@
 package test;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import model.Civilite;
+import model.Client;
 import model.Jeu;
+import model.Reservation;
+import model.TableBar;
+import repository.IClientRepository;
 import repository.IJeuRepository;
+import repository.IReservationRepository;
+import repository.ITableRepository;
 
 public class Test {
 
@@ -12,7 +22,9 @@ public class Test {
 		System.out.println(ctx);
 		
 		IJeuRepository jeuRepo = ctx.getBean(IJeuRepository.class); 
-		
+		ITableRepository tableRepo = ctx.getBean(ITableRepository.class);
+		IClientRepository clientRepo = ctx.getBean(IClientRepository.class);
+		IReservationRepository resaRepo = ctx.getBean(IReservationRepository.class);
 
 		Jeu jeu1 = new Jeu("6 qui prend !",2,10,10,20,"Gigamic","2007",14.9,"\\Projet_Final\\bdd\\image_jeu\\6-qui-prend.png","logique,réflexes",6, "qui prend, la version française de 6 nimmt! le jeu de cartes de Wolfgang Kramer qui porte parfois le nom de 6 qui perd ! Ces drôles de cartes valent de 1 à 7 «têtes de boeufs» chacune. Votre but : en récolter le moins possible. Pas de temps mort, tout le monde joue simultanément, règles simples, jusqu'à 10 joueurs, un mélange de réflexion, de stratégie et de hasard rend ce jeu très addictif.");
 		jeu1 = jeuRepo.save(jeu1);
@@ -167,9 +179,65 @@ public class Test {
 		Jeu jeu51 = new Jeu("Yokai",2,4,8,20,"Bankiiz","2018",12.9,"\\Projet_Final\\bdd\\image_jeu\\yokai.png","stratégie,tactique",4,"Un challenge de taille vous attend dans Yokai ! Vous allez devoir coopérer et communiquer mais sans aucun mot ! Le genre à le vent en poupe entre Hanabi, The Mind ou Magic Maze. Yokai y apporte sa touche de fraîcheur et son ambiance asiatique en se basant sur ces mystérieux fantômes japonais. Tous ensemble vous devrez réussir à organiser ses fantômes (placés face cachée) par famille et en silence s'il vous plait !  Alors prêts pour votre premier memory télépathique ?");
 		jeu51 = jeuRepo.save(jeu51);
 
+		TableBar table1 = new TableBar(4,1);
+		table1 = tableRepo.save(table1);
 		
+		TableBar table2 = new TableBar(4,2);
+		table2 = tableRepo.save(table2);
 		
+		TableBar table3 = new TableBar(6,3);
+		table3 = tableRepo.save(table3);
 		
+//		TableBar table4 = new TableBar(4,4);
+//		table4 = tableRepo.save(table4);
+//		
+//		TableBar table5 = new TableBar(4,5);
+//		table5 = tableRepo.save(table5);
+//		
+//		TableBar table6 = new TableBar(6,6);
+//		table6 = tableRepo.save(table6);
+//		
+//		TableBar table7 = new TableBar(8,7);
+//		table7 = tableRepo.save(table7);
+		
+		Client client1 = new Client("client1@test.fr","client1","client1","client2","0600000001",Civilite.homme);
+		client1 = clientRepo.save(client1);
+
+		Client client2 = new Client("client2@test.fr","client2","client2","client2","0600000002",Civilite.femme);
+		client2 = clientRepo.save(client2);
+		
+		Client client3 = new Client("client3@test.fr","client3","client3","client3","0600000003",Civilite.femme);
+		client3 = clientRepo.save(client3);
+
+		Client client4 = new Client("client4@test.fr","client4","client4","client4","0600000004",Civilite.nb);
+		client4 = clientRepo.save(client4);
+
+		Reservation resa1 = new Reservation(LocalDate.parse("2023-02-22"),LocalTime.parse("10:00:00"),4,table1,client1);
+		resa1 = resaRepo.save(resa1);
+		
+		Reservation resa2 = new Reservation(LocalDate.parse("2023-02-22"),LocalTime.parse("10:00:00"),4,table2,client1);
+		resa2 = resaRepo.save(resa2);
+		
+		Reservation resa3 = new Reservation(LocalDate.parse("2023-02-22"),LocalTime.parse("10:00:00"),6,table3,client1);
+		resa3 = resaRepo.save(resa3);
+		
+		Reservation resa4 = new Reservation(LocalDate.parse("2023-02-22"),LocalTime.parse("11:00:00"),4,table1,client1);
+		resa4 = resaRepo.save(resa4);
+
+		Reservation resa5 = new Reservation(LocalDate.parse("2023-02-22"),LocalTime.parse("11:00:00"),4,table2,client1);
+		resa5 = resaRepo.save(resa5);
+
+		Reservation resa6 = new Reservation(LocalDate.parse("2023-02-22"),LocalTime.parse("14:00:00"),6,table3,client1);
+		resa6 = resaRepo.save(resa6);
+
+		Reservation resa7 = new Reservation(LocalDate.parse("2023-02-22"),LocalTime.parse("15:00:00"),6,table3,client1);
+		resa7 = resaRepo.save(resa7);
+
+		Reservation resa8 = new Reservation(LocalDate.parse("2023-02-22"),LocalTime.parse("11:00:00"),6,table3,client1);
+		resa8 = resaRepo.save(resa8);
+
+		Reservation resa9 = new Reservation(LocalDate.parse("2023-02-23"),LocalTime.parse("11:00:00"),4,table1,client1);
+		resa9 = resaRepo.save(resa9);
 		
 		
 		

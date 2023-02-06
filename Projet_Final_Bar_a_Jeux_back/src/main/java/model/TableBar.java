@@ -26,8 +26,13 @@ public class TableBar {
 	private int idTable;
 	@OneToMany(mappedBy = "table")
 	private List<Reservation> reservations = new ArrayList<>();
+	// à voir si cette liste est necessaire à un moment
 	
 	public TableBar() {
+	}
+	
+	public TableBar(int nbPersonne, int idTable) {
+		
 	}
 
 

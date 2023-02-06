@@ -48,6 +48,13 @@ public class Reservation {
 		this.jeu = jeu;
 	}
 
+	public Reservation(LocalDate dateRes, LocalTime heureRes, Integer nbPersonne, TableBar table, Client client) {
+		this.dateRes = dateRes;
+		this.heureRes = heureRes;
+		this.nbPersonne = nbPersonne;
+		this.table = table;
+		this.client = client;;
+	}
 	public int getId() {
 		return id;
 	}
