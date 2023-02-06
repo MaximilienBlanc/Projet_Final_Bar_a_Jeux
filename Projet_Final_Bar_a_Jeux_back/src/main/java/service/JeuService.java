@@ -64,7 +64,7 @@ public class JeuService {
 			if (jeu.getDescription() == null || jeu.getDescription().isBlank()) {
 				throw new JeuException("description obligatoire");
 			}
-			if (jeu.getDescription().length() < 2000) {
+			if (jeu.getDescription().length() > 2000) {
 				throw new JeuException("description trop grande maximum 2000 caractères");
 			}
 		}

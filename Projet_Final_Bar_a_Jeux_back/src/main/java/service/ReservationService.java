@@ -1,10 +1,6 @@
 package service;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,6 +41,9 @@ public class ReservationService {
 			}
 			if (resa.getNbPersonne() == 0) {
 				throw new ReservationException("personne obligatoire");
+			}
+			if (resa.getTable() == null) {
+				throw new ReservationException("table obligatoire");
 			}
 			// donner un jeu n'est pas obligatoire
 		}
@@ -95,26 +94,26 @@ public class ReservationService {
 			return resaRepo.findAll();
 		}
 		
-		public List<LocalDate> findAllDisableDate(int nbPersonne){
-			Map<LocalDate, Integer> dates = resaRepo.findAllDate(nbPersonne);
-			List<LocalDate> dateDisables = new ArrayList<>();
-			for (var date : dates.entrySet()) {
-				if (date.getValue()==40) {
-					dateDisables.add(date.getKey());
-				}
-			}
-			return dateDisables;
-		}
-		
-		public List<LocalTime> findAllDisableCrenau(LocalDate dateRes){
-			Map<LocalTime, Integer> heures = resaRepo.findAllCrenauParDate(dateRes);
-			List<LocalTime> heureDisables = new ArrayList<>();
-			for (var heure : heures.entrySet()) {
-				if (heure.getValue()==40) {
-					heureDisables.add(heure.getKey());
-				}
-			}
-			return heureDisables;
-		}
+//		public List<LocalDate> findAllDisableDate(int nbPersonne){
+//			Map<LocalDate, Integer> dates = resaRepo.findAllDate(nbPersonne);
+//			List<LocalDate> dateDisables = new ArrayList<>();
+//			for (var date : dates.entrySet()) {
+//				if (date.getValue()==40) {
+//					dateDisables.add(date.getKey());
+//				}
+//			}
+//			return dateDisables;
+//		}
+//		
+//		public List<LocalTime> findAllDisableCrenau(LocalDate dateRes){
+//			Map<LocalTime, Integer> heures = resaRepo.findAllCrenauParDate(dateRes);
+//			List<LocalTime> heureDisables = new ArrayList<>();
+//			for (var heure : heures.entrySet()) {
+//				if (heure.getValue()==40) {
+//					heureDisables.add(heure.getKey());
+//				}
+//			}
+//			return heureDisables;
+//		}
 
 }

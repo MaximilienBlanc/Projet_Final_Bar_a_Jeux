@@ -17,23 +17,23 @@ public class TableService {
 	private ITableRepository tableRepo;
 	
 	// creation réservation
-		public TableBar create(TableBar table) {
-			checkNotNull(table);
-			checkConstraint(table);
-			return tableRepo.save(table);
+		public TableBar create(TableBar tableBar) {
+			checkNotNull(tableBar);
+			checkConstraint(tableBar);
+			return tableRepo.save(tableBar);
 		}
 		
-		private void checkNotNull(TableBar table) {
-			if (table == null) {
+		private void checkNotNull(TableBar tableBar) {
+			if (tableBar == null) {
 				throw new TableException("table obligatoire");
 			}
 		}
 		
-		private void checkConstraint(TableBar table) {
-			if (table.getNbPersonne() == 0) {
+		private void checkConstraint(TableBar tableBar) {
+			if (tableBar.getNbPersonne() == 0) {
 				throw new TableException("capacité de la table obligatoire");
 			}
-			if (table.getIdTable() == 0) {
+			if (tableBar.getIdTable() == 0) {
 				throw new TableException("id de la table obligatoire");
 			}
 		}
@@ -44,30 +44,30 @@ public class TableService {
 			}
 		}
 
-		private void checkExist(TableBar table) {
-			checkId(table.getId());
-			findById(table.getId());
+		private void checkExist(TableBar tableBar) {
+			checkId(tableBar.getId());
+			findById(tableBar.getId());
 		}
 
-		public void delete(TableBar table) {
-			checkExist(table);
-			tableRepo.delete(table);
+		public void delete(TableBar tableBar) {
+			checkExist(tableBar);
+			tableRepo.delete(tableBar);
 		}
 
 		public void delete(Integer id) {
 			delete(findById(id));
 		}
 		
-		public TableBar update(TableBar table) {
-			checkNotNull(table);
-			checkExist(table);
-			checkConstraint(table);
-			TableBar tableEnBase = findById(table.getId());
-			tableEnBase.setIdTable(table.getIdTable());
-			tableEnBase.setNbPersonne(table.getNbPersonne());
+		public TableBar update(TableBar tableBar) {
+			checkNotNull(tableBar);
+			checkExist(tableBar);
+			checkConstraint(tableBar);
+			TableBar tableEnBase = findById(tableBar.getId());
+			tableEnBase.setIdTable(tableBar.getIdTable());
+			tableEnBase.setNbPersonne(tableBar.getNbPersonne());
 			// donner un jeu n'est pas obligatoire
-			if (table.getEvenement() != null) {
-				tableEnBase.setEvenement(table.getEvenement());
+			if (tableBar.getEvenement() != null) {
+				tableEnBase.setEvenement(tableBar.getEvenement());
 			}
 			return tableRepo.save(tableEnBase);
 		}

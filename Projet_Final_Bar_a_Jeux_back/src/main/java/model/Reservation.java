@@ -55,11 +55,12 @@ public class Reservation {
 		this.table = table;
 		this.client = client;;
 	}
-	public int getId() {
+	
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

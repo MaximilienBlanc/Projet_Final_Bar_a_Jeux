@@ -3,35 +3,43 @@ package test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 import javax.transaction.Transactional;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import config.AppConfig;
 import model.Civilite;
 import model.Client;
+import model.Jeu;
+import model.Reservation;
+import model.TableBar;
 import service.ClientService;
+import service.JeuService;
+import service.ReservationService;
+import service.TableService;
 
-
+@Transactional
+@Rollback(false)
+@SpringJUnitConfig(AppConfig.class)
 class MainTest {
 
 	@Autowired
 	ClientService clientSrv;
 	
-//	public static void main(String[] args) {
-//		ClassPathXmlApplicationContext ctx=new ClassPathXmlApplicationContext("application-context.xml");
-//		System.out.println(ctx);
-//		
-//		
-//		
-//		IJeuRepository jeuRepo = ctx.getBean(IJeuRepository.class); 
-//		ITableRepository tableRepo = ctx.getBean(ITableRepository.class);
-//		IClientRepository clientRepo = ctx.getBean(IClientRepository.class);
-//		IReservationRepository resaRepo = ctx.getBean(IReservationRepository.class);
+	@Autowired
+	JeuService jeuSrv;
 	
+	@Autowired
+	TableService tableSrv;
+	
+	@Autowired
+	ReservationService resaSrv;
 	
 	@Test
 	void test2() {
@@ -46,7 +54,6 @@ class MainTest {
 	}
 	
 	@Test
-	@Disabled
 	void testCreate() {
 		
 		Client client1 = new Client("client1@test.fr","client1","client1","client2","0600000001",Civilite.homme);
@@ -55,9 +62,9 @@ class MainTest {
 		Client client2 = new Client("client2@test.fr","client2","client2","client2","0600000002",Civilite.femme);
 		clientSrv.save(client2);
 		
-//		Jeu jeu1 = new Jeu("6 qui prend !",2,10,10,20,"Gigamic","2007",14.9,"\\Projet_Final\\bdd\\image_jeu\\6-qui-prend.png","logique,réflexes",6, "qui prend, la version française de 6 nimmt! le jeu de cartes de Wolfgang Kramer qui porte parfois le nom de 6 qui perd ! Ces drôles de cartes valent de 1 à 7 «têtes de boeufs» chacune. Votre but : en récolter le moins possible. Pas de temps mort, tout le monde joue simultanément, règles simples, jusqu'à 10 joueurs, un mélange de réflexion, de stratégie et de hasard rend ce jeu très addictif.");
-//		jeuSrv.create(jeu1);
-//		
+		Jeu jeu1 = new Jeu("6 qui prend !",2,10,10,20,"Gigamic","2007",14.9,"\\Projet_Final\\bdd\\image_jeu\\6-qui-prend.png","logique,réflexes",6, "qui prend, la version française de 6 nimmt!");
+		jeuSrv.create(jeu1);
+		
 //		Jeu jeu2 = new Jeu("7 Wonders",3,7,10,30,"Repos Production","2010",42.5,"\\Projet_Final\\bdd\\image_jeu\\7-wonders.png","stratégie,tactique",5,"Pour fêter ses 10ans, 7 Wonders s'offre une toute nouvelle édition. Désormais érigé au rang de classique, 7 wonders vous invite à prendre la tête de l’une des sept grandes cités du monde Antique et ainsi laisser votre empreinte dans l’histoire des civilisations. Un jeu de développement de civilisation, de gestion de ressources et de cartes, souvent imité mais jamais égalé. Un des meilleurs jeux de stratégie de construction par carte si ce n'est le meilleur !");
 //		jeuSrv.create(jeu2);
 //		
@@ -75,7 +82,6 @@ class MainTest {
 //				
 //		Jeu jeu7 = new Jeu("Brass Lancashire",2,4,14,60,"Funforge","2019",62.9,"\\Projet_Final\\bdd\\image_jeu\\brass-lancashire.png","stratégie,tactique",4,"Brass : Lancashire est un jeu de stratégie économique qui raconte l'histoire d'entrepreneurs concurrents dans le Lancashire pendant la révolution industrielle. Vous devez développer, construire et établir vos industries et votre réseau afin de pouvoir répondre à la demande de fer, de charbon et de coton. Un modèle de jeu de gestion, beaucoup d'interactions, une énorme profondeur et un fort goût de reviens-y !");
 //		jeuSrv.create(jeu7);
-	}
 
 //		Jeu jeu1 = new Jeu("6 qui prend !",2,10,10,20,"Gigamic","2007",14.9,"\\Projet_Final\\bdd\\image_jeu\\6-qui-prend.png","logique,réflexes",6, "qui prend, la version française de 6 nimmt! le jeu de cartes de Wolfgang Kramer qui porte parfois le nom de 6 qui perd ! Ces drôles de cartes valent de 1 à 7 «têtes de boeufs» chacune. Votre but : en récolter le moins possible. Pas de temps mort, tout le monde joue simultanément, règles simples, jusqu'à 10 joueurs, un mélange de réflexion, de stratégie et de hasard rend ce jeu très addictif.");
 //		jeuSrv.create(jeu1);
@@ -97,7 +103,7 @@ class MainTest {
 //				
 //		Jeu jeu7 = new Jeu("Brass Lancashire",2,4,14,60,"Funforge","2019",62.9,"\\Projet_Final\\bdd\\image_jeu\\brass-lancashire.png","stratégie,tactique",4,"Brass : Lancashire est un jeu de stratégie économique qui raconte l'histoire d'entrepreneurs concurrents dans le Lancashire pendant la révolution industrielle. Vous devez développer, construire et établir vos industries et votre réseau afin de pouvoir répondre à la demande de fer, de charbon et de coton. Un modèle de jeu de gestion, beaucoup d'interactions, une énorme profondeur et un fort goût de reviens-y !");
 //		jeuSrv.create(jeu7);
-		
+//		
 //		Jeu jeu8 = new Jeu("Carcassonne",2,5,8,30,"Z-Man Games","2000",31.5,"\\Projet_Final\\bdd\\image_jeu\\carcassonne.png","stratégie,tactique",3,"Carcassonne ce n’est pas que le nom d’une ville du sud de la France, il s’agit également d’un symbole de la lutte des hérétiques contre l’oppression de l’Église au Moyen Âge. Encore aujourd’hui, ses remparts et ses fortifications ne cessent d’impressionner. À l’aide de tuiles sur lesquelles se trouvent villes, monastères, routes et champs, les joueurs agrandissent le plateau tour après tour. Les joueurs placent leurs partisans sur les différentes tuiles constituant les environs de Carcassonne afin d’obtenir le plus de points de victoire possible. Selon l’endroit où ils sont placés, les partisans deviendront chevaliers, moines, voleurs ou paysans. Pour l’emporter, soyez fins stratèges ! Carcassonne est un classique du jeu de société, le jeu est vraiment simple mais cela ne l'empêche pas d'être stratégique !");
 //		jeu8 = jeuRepo.save(jeu8);
 //		
@@ -229,13 +235,14 @@ class MainTest {
 //		
 //		Jeu jeu51 = new Jeu("Yokai",2,4,8,20,"Bankiiz","2018",12.9,"\\Projet_Final\\bdd\\image_jeu\\yokai.png","stratégie,tactique",4,"Un challenge de taille vous attend dans Yokai ! Vous allez devoir coopérer et communiquer mais sans aucun mot ! Le genre à le vent en poupe entre Hanabi, The Mind ou Magic Maze. Yokai y apporte sa touche de fraîcheur et son ambiance asiatique en se basant sur ces mystérieux fantômes japonais. Tous ensemble vous devrez réussir à organiser ses fantômes (placés face cachée) par famille et en silence s'il vous plait !  Alors prêts pour votre premier memory télépathique ?");
 //		jeu51 = jeuRepo.save(jeu51);
-//
-//		TableBar table1 = new TableBar(4,1);
-//		table1 = tableRepo.save(table1);
-//		
-//		TableBar table2 = new TableBar(4,2);
-//		table2 = tableRepo.save(table2);
-//		
+
+		TableBar table1 = new TableBar(4,1);
+		System.out.println(table1.toString());
+		tableSrv.create(table1);
+		
+		TableBar table2= new TableBar(4,2);
+		tableSrv.create(table2);
+		
 //		TableBar table3 = new TableBar(6,3);
 //		table3 = tableRepo.save(table3);
 //		
@@ -262,13 +269,13 @@ class MainTest {
 //
 //		Client client4 = new Client("client4@test.fr","client4","client4","client4","0600000004",Civilite.nb);
 //		client4 = clientRepo.save(client4);
-//
-//		Reservation resa1 = new Reservation(LocalDate.parse("2023-02-22"),LocalTime.parse("10:00:00"),4,table1,client1);
-//		resa1 = resaRepo.save(resa1);
-//		
-//		Reservation resa2 = new Reservation(LocalDate.parse("2023-02-22"),LocalTime.parse("10:00:00"),4,table2,client1);
-//		resa2 = resaRepo.save(resa2);
-//		
+
+		Reservation resa1 = new Reservation(LocalDate.parse("2023-02-22"),LocalTime.parse("10:00:00"),4,table1,client1);
+		resaSrv.create(resa1);
+		
+		Reservation resa2 = new Reservation(LocalDate.parse("2023-02-22"),LocalTime.parse("10:00:00"),4,table2,client1);
+		resaSrv.create(resa2);
+		
 //		Reservation resa3 = new Reservation(LocalDate.parse("2023-02-22"),LocalTime.parse("10:00:00"),6,table3,client1);
 //		resa3 = resaRepo.save(resa3);
 //		
@@ -289,12 +296,11 @@ class MainTest {
 //
 //		Reservation resa9 = new Reservation(LocalDate.parse("2023-02-23"),LocalTime.parse("11:00:00"),4,table1,client1);
 //		resa9 = resaRepo.save(resa9);
-//		
-//		
-//		
-//		ctx.close();
 		
 		
-//	}
+		
+		
+		
+	}
 
 }
