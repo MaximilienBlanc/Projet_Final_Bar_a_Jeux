@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import exception.IdException;
 import exception.JeuException;
 import model.Jeu;
-import model.Reservation;
 import repository.IJeuRepository;
 
 @Service

@@ -77,7 +77,7 @@ public class ClientService {
 	
 	public Client findById(Integer id) {
 		checkId(id);
-		return clientRepo.findById(id);
+		return clientRepo.findById(id).orElseThrow(ClientException::new);
 	}
 
 	public List<Client> findAll(){	

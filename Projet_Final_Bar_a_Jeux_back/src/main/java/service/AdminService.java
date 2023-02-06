@@ -65,7 +65,7 @@ public class AdminService {
 	
 	public Admin findById(Integer id) {
 		checkId(id);
-		return adminRepo.findById(id);
+		return adminRepo.findById(id).orElseThrow(AdminException::new);
 	}
 
 	public List<Admin> findAll(){	
