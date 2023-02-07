@@ -59,8 +59,17 @@ public class AppConfig {
 		}
 	
 
-	
-	
+		@Bean
+		public Integer resaMaxJour() 
+		{
+			return 2;
+		}
+		
+		@Bean
+		public Integer resaMaxHeure() 
+		{
+			return 2;
+		}
 	
 	
 }

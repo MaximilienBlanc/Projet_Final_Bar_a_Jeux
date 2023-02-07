@@ -121,4 +121,12 @@ public class Reservation {
 		this.jeu = jeu;
 	}
 
+	@Override
+	public String toString() {
+		return "Reservation [dateRes=" + dateRes + ", heureRes=" + heureRes + ", nbPersonne=" + nbPersonne
+				+ ", tableBar=" + tableBar + ", client=" + client + "]";
+	}
+	
+	
+
 }

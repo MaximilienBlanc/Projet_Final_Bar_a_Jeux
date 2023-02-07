@@ -22,6 +22,13 @@ public class ReservationService {
 	@Autowired
 	private IReservationRepository resaRepo;
 	
+	
+	@Autowired
+	Integer resaMaxJour;
+	
+	@Autowired
+	Integer resaMaxHeure;
+	
 	// creation réservation
 		public Reservation create(Reservation resa) {
 			checkNotNull(resa);
@@ -102,14 +109,15 @@ public class ReservationService {
 		
 		public List<LocalDate> findAllDisableDate(int nbPersonne){
 			Collection<LocalDate> dates = resaRepo.findAllDate(nbPersonne);
+//			System.out.println("bean "+resaMaxJour);
 //			List<LocalDate> dateUnique = resaRepo.findUniqueDate(nbPersonne);
-			// récupération des valeurs uniques des dates dans la variable dates provenant de l'ensemble des réservations
+//			récupération des valeurs uniques des dates dans la variable dates provenant de l'ensemble des réservations
 			List<LocalDate> dateUnique = dates.stream().distinct().collect(Collectors.toList());
 			List<LocalDate> dateDisables = new ArrayList<>();
 			for (var date : dateUnique) {
 				// compte le nombre de fois que la date "date" apparait dans la liste "dates"
 				int occurrences = Collections.frequency(dates, date);
-				if (occurrences==2) {
+				if (occurrences==resaMaxJour) {
 					dateDisables.add(date);
 				}
 			}
@@ -125,7 +133,7 @@ public class ReservationService {
 			for (var heure : heureUnique) {
 				// compte le nombre de fois que la date "date" apparait dans la liste "dates"
 				int occurrences = Collections.frequency(heures, heure);
-				if (occurrences==2) {
+				if (occurrences==resaMaxHeure) {
 					heureDisables.add(heure);
 				}
 			}
