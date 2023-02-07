@@ -2,6 +2,7 @@ package test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -152,37 +153,44 @@ class ReservationServiceTest {
 	@Test
 	void checkConstraintThrowsTest() {
 		
-		assertThrows(ReservationException.class, () -> {
+		ReservationException thrown1= assertThrows(ReservationException.class, () -> {
 			Client client1 = new Client("client1@test.fr","client1","client1","client2","0600000001",Civilite.homme);
 			client1=clientSrv.save(client1);
 			resaSrv.create(new Reservation(LocalDate.parse("2023-02-22"),LocalTime.parse("10:00:00"),4,null,client1));
 		});
-		assertThrows(ReservationException.class, () -> {
+		ReservationException thrown2= assertThrows(ReservationException.class, () -> {
 			TableBar table1 = new TableBar(4,1);
 			table1=tableSrv.create(table1);
 			resaSrv.create(new Reservation(LocalDate.parse("2023-02-22"),LocalTime.parse("10:00:00"),4,table1,null));
 		});
-		assertThrows(ReservationException.class, () -> {
+		ReservationException thrown3= assertThrows(ReservationException.class, () -> {
 			Client client1 = new Client("client1@test.fr","client1","client1","client2","0600000001",Civilite.homme);
 			client1=clientSrv.save(client1);
 			TableBar table1 = new TableBar(4,1);
 			table1=tableSrv.create(table1);
 			resaSrv.create(new Reservation(LocalDate.parse("2023-02-22"),LocalTime.parse("10:00:00"),0,table1,client1));
 		});
-		assertThrows(ReservationException.class, () -> {
+		ReservationException thrown4= assertThrows(ReservationException.class, () -> {
 			Client client1 = new Client("client1@test.fr","client1","client1","client2","0600000001",Civilite.homme);
 			client1=clientSrv.save(client1);
 			TableBar table1 = new TableBar(4,1);
 			table1=tableSrv.create(table1);
 			resaSrv.create(new Reservation(LocalDate.parse("2023-02-22"),null,4,table1,client1));
 		});
-		assertThrows(ReservationException.class, () -> {
+		ReservationException thrown5= assertThrows(ReservationException.class, () -> {
 			Client client1 = new Client("client1@test.fr","client1","client1","client2","0600000001",Civilite.homme);
 			client1=clientSrv.save(client1);
 			TableBar table1 = new TableBar(4,1);
 			table1=tableSrv.create(table1);
 			resaSrv.create(new Reservation(null,LocalTime.parse("10:00:00"),4,table1,client1));
 		});
+		
+		assertTrue(thrown1.getMessage().contentEquals("table obligatoire"));
+		assertTrue(thrown2.getMessage().contentEquals("client obligatoire"));
+		assertTrue(thrown3.getMessage().contentEquals("personne obligatoire"));
+		assertTrue(thrown4.getMessage().contentEquals("heure obligatoire"));
+		assertTrue(thrown5.getMessage().contentEquals("date obligatoire"));
+				
 	}
 	
 	@Test
