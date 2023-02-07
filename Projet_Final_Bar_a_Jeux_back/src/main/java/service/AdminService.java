@@ -28,7 +28,7 @@ public class AdminService {
 		return adminRepo.save(compteAdmin);
 	}
 	
-	private void checkNotNull(Admin compteAdmin) {
+	public void checkNotNull(Admin compteAdmin) {
 		if (compteAdmin == null) {
 			throw new AdminException("compte admin obligatoire");
 		}
