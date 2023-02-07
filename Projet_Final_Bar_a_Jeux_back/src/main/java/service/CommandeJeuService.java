@@ -31,8 +31,14 @@ public class CommandeJeuService {
 		
 		private void checkConstraint(CommandeJeu commandeJeu) {
 			// Statut a faire valider
-			if (commandeJeu.getStatut() == null || !(commandeJeu.getStatut().equals(Statut.EnCours) || commandeJeu.getStatut().equals(Statut.Validee) || commandeJeu.getStatut().equals(Statut.Livree))) {
-				throw new CommandeJeuException("statut correcte obligatoire");
+			if (commandeJeu.getStatut() == null) { //|| !(commandeJeu.getStatut().equals(Statut.EnCours) || commandeJeu.getStatut().equals(Statut.Validee) || commandeJeu.getStatut().equals(Statut.Livree))) {
+				throw new CommandeJeuException("statut obligatoire");
+			}
+			if (commandeJeu.getClient() == null) {
+				throw new CommandeJeuException("client obligatoire");
+			}
+			if (commandeJeu.getAchatJeux() == null) {
+				throw new CommandeJeuException("achatJeux obligatoire");
 			}
 		}
 		
@@ -72,14 +78,9 @@ public class CommandeJeuService {
 			checkConstraint(commandeJeu);
 			CommandeJeu commandeJeuEnBase = findById(commandeJeu.getId());
 			commandeJeuEnBase.setStatut(commandeJeuEnBase.getStatut());
-			// client pas obligatoire a discuter
-			if (commandeJeuEnBase.getClient() != null) {
-				commandeJeuEnBase.setClient(commandeJeuEnBase.getClient());
-			}
-			// achatJeux pas obligatoire a discuter
-			if (commandeJeuEnBase.getAchatJeux() != null) {
-				commandeJeuEnBase.setAchatJeux(commandeJeuEnBase.getAchatJeux());
-			}
+			commandeJeuEnBase.setClient(commandeJeuEnBase.getClient());
+			commandeJeuEnBase.setAchatJeux(commandeJeuEnBase.getAchatJeux());
+			
 			return commandeJeuRepo.save(commandeJeuEnBase);
 		}
 	

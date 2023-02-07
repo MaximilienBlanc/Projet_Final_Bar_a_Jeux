@@ -1,6 +1,8 @@
 package service;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,9 +53,11 @@ public class JeuService {
 			if (jeu.getAnnee() == null || jeu.getAnnee().isBlank()) {
 				throw new JeuException("annee obligatoire");
 			}
-			// Pour le prix vu qu'on a des jeux a preter et d'autre a vendre est ce qu'on doit mettre une condition ?
+			if (jeu.getPrix() < 0) {
+				throw new JeuException("prix doit être supérieur à zéro");
+			}
 			if (jeu.getImage() == null || jeu.getImage().isBlank()) {
-				throw new JeuException("dhemin d'image obligatoire");
+				throw new JeuException("chemin d'image obligatoire");
 			}
 			if (jeu.getTypeJeu() == null || jeu.getTypeJeu().isBlank()) {
 				throw new JeuException("typeJeu obligatoire");
@@ -125,5 +129,14 @@ public class JeuService {
 				jeuEnBase.setAchatJeux(jeu.getAchatJeux());
 			}
 			return jeuRepo.save(jeuEnBase);
+		}
+		
+		//Fonction retounant tout les type de jeu existant
+		public List<String> findAllTypeJeu() {
+			
+			List<String> typejeux = jeuRepo.findAllTypeJeu();
+			String typeJeuCommaSeparated = typejeux.stream().collect(Collectors.joining(","));
+			List<String> listTypeJeu = Stream.of(typeJeuCommaSeparated.split(",")).distinct().collect(Collectors.toList());
+			return listTypeJeu;	
 		}
 }

@@ -61,6 +61,26 @@ public class Jeu {
 		this.stock = stock;
 		this.description = description;
 	}
+	
+	
+
+	public Jeu(int id, String nom, int nbJoueurMin, int nbJoueurMax, int ageMin, int duree, String editeur,
+			String annee, double prix, String image, String typeJeu, int stock, String description) {
+		super();
+		this.id = id;
+		this.nom = nom;
+		this.nbJoueurMin = nbJoueurMin;
+		this.nbJoueurMax = nbJoueurMax;
+		this.ageMin = ageMin;
+		this.duree = duree;
+		this.editeur = editeur;
+		this.annee = annee;
+		this.prix = prix;
+		this.image = image;
+		this.typeJeu = typeJeu;
+		this.stock = stock;
+		this.description = description;
+	}
 
 	public int getId() {
 		return id;

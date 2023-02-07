@@ -33,7 +33,13 @@ public class AchatJeuService {
 				throw new AchatJeuException("date d'achat obligatoire");
 			}
 			if (achatJeu.getQuantite() < 0) {
-				throw new JeuException("saisir quantité positive");
+				throw new AchatJeuException("saisir quantité positive");
+			}
+			if (achatJeu.getJeu() == null) {
+				throw new AchatJeuException("saisir un objet jeu");
+			}
+			if (achatJeu.getCommandeJeu() == null) {
+				throw new AchatJeuException("saisir un objet commandeJeu");
 			}
 		}
 		
@@ -74,14 +80,9 @@ public class AchatJeuService {
 			AchatJeu achatJeuEnBase = findById(achatJeu.getId());
 			achatJeuEnBase.setDateAchat(achatJeuEnBase.getDateAchat());
 			achatJeuEnBase.setQuantite(achatJeuEnBase.getQuantite());
-			// jeu pas obligatoire a discuter
-			if (achatJeuEnBase.getJeu() != null) {
-				achatJeuEnBase.setJeu(achatJeuEnBase.getJeu());
-			}
-			// commande pas obligatoire a discuter
-			if (achatJeuEnBase.getCommandeJeu() != null) {
-				achatJeuEnBase.setCommandeJeu(achatJeuEnBase.getCommandeJeu());
-			}
+			achatJeuEnBase.setJeu(achatJeuEnBase.getJeu());
+			achatJeuEnBase.setCommandeJeu(achatJeuEnBase.getCommandeJeu());
+			
 			return achatJeuRepo.save(achatJeuEnBase);
 		}
 	
