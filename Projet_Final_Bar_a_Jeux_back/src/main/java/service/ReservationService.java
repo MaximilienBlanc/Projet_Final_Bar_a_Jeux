@@ -65,7 +65,7 @@ public class ReservationService {
 		
 		private void checkId(Integer id) {
 			if (id == null) {
-				throw new IdException();
+				throw new IdException("id obligatoire");
 			}
 		}
 
@@ -144,6 +144,14 @@ public class ReservationService {
 		
 		public List<Reservation> findAllByClientId(Integer id){
 			return resaRepo.findAllByClientId(id);
+		}
+		
+		public List<Reservation> findAllByAfterDateRes (){
+			return resaRepo.findAllByAfterDateRes(LocalDate.now());
+		}
+		
+		public List<Reservation> findAllByBeforeDateRes (){
+			return resaRepo.findAllByBeforeDateRes(LocalDate.now());
 		}
 
 }

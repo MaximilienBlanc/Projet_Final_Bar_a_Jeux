@@ -24,6 +24,9 @@ public interface IReservationRepository extends JpaRepository<Reservation, Integ
 	
 	List<Reservation> findAllByClientId(Integer id);
 	
-	
+	@Query("select r from Reservation r WHERE r.dateRes>=:dateRes")
+	List<Reservation> findAllByAfterDateRes(@Param("dateRes") LocalDate dateRes);
 
+	@Query("select r from Reservation r WHERE r.dateRes<:dateRes")
+	List<Reservation> findAllByBeforeDateRes(@Param("dateRes") LocalDate dateRes);
 }

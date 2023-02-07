@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -86,6 +87,24 @@ class ReservationServiceTest {
 		resaSrv.create(resa1);
 		assertNotNull(resaSrv.findById(resa1.getId()));
 		resaSrv.delete(resa1);
+		assertThrows(IdException.class, () -> {
+			resaSrv.findById(resa1.getId());
+        });
+	}
+	
+	@Test
+	void deleteReservationIdTest() {
+		Client client1 = new Client("client1@test.fr","client1","client1","client2","0600000001",Civilite.homme);
+		TableBar table1 = new TableBar(4,1);
+		client1=clientSrv.save(client1);
+		table1=tableSrv.create(table1);
+		Reservation resa1 = new Reservation(LocalDate.parse("2023-02-22"),LocalTime.parse("10:00:00"),4,table1,client1);
+		resaSrv.create(resa1);
+		assertNotNull(resaSrv.findById(resa1.getId()));
+		resaSrv.delete(resa1.getId());
+		assertThrows(IdException.class, () -> {
+			resaSrv.findById(resa1.getId());
+        });
 	}
 	
 	@Test
@@ -214,4 +233,27 @@ class ReservationServiceTest {
 		assertEquals(2, resaSrv.findAllByClientId(client1.getId()).size());
 
 	}
+	
+	
+	@Test
+	void findAllByDateRes() {
+		Client client1 = new Client("client1@test.fr","client1","client1","client2","0600000001",Civilite.homme);
+		client1=clientSrv.save(client1);
+		TableBar table1 = new TableBar(4,1);
+		table1=tableSrv.create(table1);
+		resaSrv.create(new Reservation(LocalDate.parse("2023-02-22"),LocalTime.parse("10:00:00"),4,table1,client1));
+		resaSrv.create(new Reservation(LocalDate.parse("2023-02-23"),LocalTime.parse("10:00:00"),4,table1,client1));
+		resaSrv.create(new Reservation(LocalDate.parse("2023-01-23"),LocalTime.parse("10:00:00"),4,table1,client1));
+		
+		List<Reservation> dateAfter=resaSrv.findAllByAfterDateRes();
+		List<Reservation> dateBefore=resaSrv.findAllByBeforeDateRes();
+		//System.out.println(dateAfter.get(0).getDateRes());
+		//System.out.println(dateAfter.get(1).getDateRes());
+		//System.out.println(dateBefore.get(0).getDateRes());
+		assertEquals(2, dateAfter.size());
+		assertEquals(1, dateBefore.size());
+
+	}
+	
+	
 }
