@@ -1,5 +1,6 @@
 package test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -86,6 +87,24 @@ class ReservationServiceTest {
 		resaSrv.create(resa1);
 		assertNotNull(resaSrv.findById(resa1.getId()));
 		resaSrv.delete(resa1);
+		assertThrows(IdException.class, () -> {
+			resaSrv.findById(resa1.getId());
+        });
+	}
+	
+	@Test
+	void deleteReservationIdTest() {
+		Client client1 = new Client("client1@test.fr","client1","client1","client2","0600000001",Civilite.homme);
+		TableBar table1 = new TableBar(4,1);
+		client1=clientSrv.save(client1);
+		table1=tableSrv.create(table1);
+		Reservation resa1 = new Reservation(LocalDate.parse("2023-02-22"),LocalTime.parse("10:00:00"),4,table1,client1);
+		resaSrv.create(resa1);
+		assertNotNull(resaSrv.findById(resa1.getId()));
+		resaSrv.delete(resa1.getId());
+		assertThrows(IdException.class, () -> {
+			resaSrv.findById(resa1.getId());
+        });
 	}
 	
 	@Test
@@ -119,8 +138,8 @@ class ReservationServiceTest {
 		resaSrv.create(resa1);
 		resaSrv.create(resa2);
 		resaSrv.create(resa3);
-		List<LocalDate> datesDisable = resaSrv.findAllDisableDate(4);
-		System.out.println(datesDisable);
+		//System.out.println(datesDisable);
+		assertEquals(1, resaSrv.findAllDisableDate(4).size());
 	}
 	
 	@Test
@@ -139,14 +158,14 @@ class ReservationServiceTest {
 		resaSrv.create(resa1);
 		resaSrv.create(resa2);
 		resaSrv.create(resa3);
-		List<LocalTime> heuresDisable = resaSrv.findAllDisableHeureparDate(4);
-		System.out.println(heuresDisable);
+		//System.out.println(heuresDisable);
+		assertEquals(1, resaSrv.findAllDisableHeureparDate(4).size());
 	}
 	
 	@Test
 	void findByIdThrowsTest() {
 		assertThrows(IdException.class, () -> {
-			resaSrv.findById(1);
+			resaSrv.findById(0);
 		});
 	}
 
@@ -200,4 +219,41 @@ class ReservationServiceTest {
 			resaSrv.create(null);
 		});
 	}
+	
+	@Test
+	void testFindAll() {
+		Client client1 = new Client("client1@test.fr","client1","client1","client2","0600000001",Civilite.homme);
+		client1=clientSrv.save(client1);
+		TableBar table1 = new TableBar(4,1);
+		table1=tableSrv.create(table1);
+		resaSrv.create(new Reservation(LocalDate.parse("2023-02-22"),LocalTime.parse("10:00:00"),4,table1,client1));
+		resaSrv.create(new Reservation(LocalDate.parse("2023-02-23"),LocalTime.parse("10:00:00"),4,table1,client1));
+		
+		//System.out.println(resaSrv.findAllbyIdClient(client1.getId()));
+		assertEquals(2, resaSrv.findAllByClientId(client1.getId()).size());
+
+	}
+	
+	
+	@Test
+	void findAllByDateRes() {
+		Client client1 = new Client("client1@test.fr","client1","client1","client2","0600000001",Civilite.homme);
+		client1=clientSrv.save(client1);
+		TableBar table1 = new TableBar(4,1);
+		table1=tableSrv.create(table1);
+		resaSrv.create(new Reservation(LocalDate.parse("2023-02-22"),LocalTime.parse("10:00:00"),4,table1,client1));
+		resaSrv.create(new Reservation(LocalDate.parse("2023-02-23"),LocalTime.parse("10:00:00"),4,table1,client1));
+		resaSrv.create(new Reservation(LocalDate.parse("2023-01-23"),LocalTime.parse("10:00:00"),4,table1,client1));
+		
+		List<Reservation> dateAfter=resaSrv.findAllByAfterDateRes();
+		List<Reservation> dateBefore=resaSrv.findAllByBeforeDateRes();
+		//System.out.println(dateAfter.get(0).getDateRes());
+		//System.out.println(dateAfter.get(1).getDateRes());
+		//System.out.println(dateBefore.get(0).getDateRes());
+		assertEquals(2, dateAfter.size());
+		assertEquals(1, dateBefore.size());
+
+	}
+	
+	
 }
