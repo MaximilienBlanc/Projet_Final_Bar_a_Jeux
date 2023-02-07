@@ -2,8 +2,6 @@ package test;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -26,7 +24,7 @@ import service.ReservationService;
 import service.TableService;
 
 @Transactional
-@Rollback(false)
+@Rollback
 @SpringJUnitConfig(AppConfig.class)
 class DonneesInitBdd {
 

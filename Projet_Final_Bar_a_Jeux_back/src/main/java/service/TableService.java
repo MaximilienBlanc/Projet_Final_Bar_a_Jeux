@@ -74,7 +74,7 @@ public class TableService {
 		
 		public TableBar findById(Integer id) {
 			checkId(id);
-			return tableRepo.findById(id).orElseThrow(TableException::new);
+			return tableRepo.findById(id).orElseThrow(IdException::new);
 		}
 		
 		public List<TableBar> findAll(){

@@ -56,7 +56,28 @@ public class Reservation {
 		this.client = client;
 		;
 	}
+	
+	public Reservation(Integer id, LocalDate dateRes, LocalTime heureRes, Integer nbPersonne, TableBar tableBar, Client client) {
+		this.id =id;
+		this.dateRes = dateRes;
+		this.heureRes = heureRes;
+		this.nbPersonne = nbPersonne;
+		this.tableBar = tableBar;
+		this.client = client;
+		;
+	}
 
+	public Reservation(Integer id, LocalDate dateRes, LocalTime heureRes, Integer nbPersonne, TableBar tableBar, Client client, Jeu jeu) {
+		this.id =id;
+		this.dateRes = dateRes;
+		this.heureRes = heureRes;
+		this.nbPersonne = nbPersonne;
+		this.tableBar = tableBar;
+		this.client = client;
+		this.jeu = jeu;
+		;
+	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -120,13 +141,5 @@ public class Reservation {
 	public void setJeu(Jeu jeu) {
 		this.jeu = jeu;
 	}
-
-	@Override
-	public String toString() {
-		return "Reservation [dateRes=" + dateRes + ", heureRes=" + heureRes + ", nbPersonne=" + nbPersonne
-				+ ", tableBar=" + tableBar + ", client=" + client + "]";
-	}
-	
-	
 
 }

@@ -39,6 +39,15 @@ public class TableBar {
 		this.idTable = idTable;
 	}
 
+	
+
+
+	public TableBar(int id, int nbPersonne, int idTable) {
+		this.id = id;
+		this.nbPersonne = nbPersonne;
+		this.idTable = idTable;
+	}
+
 
 
 
@@ -90,12 +99,6 @@ public class TableBar {
 	public void setReservations(List<Reservation> reservations) {
 		this.reservations = reservations;
 	}
-
-	@Override
-	public String toString() {
-		return "TableBar [nbPersonne=" + nbPersonne + ", idTable=" + idTable + "]";
-	}
-	
 	
 	
 }

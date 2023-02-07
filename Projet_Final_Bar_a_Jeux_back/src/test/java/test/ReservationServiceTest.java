@@ -1,6 +1,7 @@
 package test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -14,11 +15,15 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import config.AppConfig;
+import exception.IdException;
+import exception.ReservationException;
 import model.Civilite;
 import model.Client;
+import model.Jeu;
 import model.Reservation;
 import model.TableBar;
 import service.ClientService;
+import service.JeuService;
 import service.ReservationService;
 import service.TableService;
 
@@ -36,6 +41,9 @@ class ReservationServiceTest {
 	@Autowired
 	TableService tableSrv;
 	
+	@Autowired
+	JeuService jeuSrv;
+	
 	@Test
 	void injectionReservationServiceTest() {
 		assertNotNull(resaSrv);
@@ -45,7 +53,24 @@ class ReservationServiceTest {
 	void creationReservationTest() {
 		Client client1 = new Client("client1@test.fr","client1","client1","client2","0600000001",Civilite.homme);
 		TableBar table1 = new TableBar(4,1);
+		client1=clientSrv.save(client1);
+		table1=tableSrv.create(table1);
 		Reservation resa1 = new Reservation(LocalDate.parse("2023-02-22"),LocalTime.parse("10:00:00"),4,table1,client1);
+		//System.out.println(resa1.toString());
+		resaSrv.create(resa1);
+	}
+	
+	@Test
+	void creationReservationAvecJeuxTest() {
+		Client client1 = new Client("client1@test.fr","client1","client1","client2","0600000001",Civilite.homme);
+		TableBar table1 = new TableBar(4,1);
+		Jeu jeu1 = new Jeu("6 qui prend !",2,10,10,20,"Gigamic","2007",14.9,"\\Projet_Final\\bdd\\image_jeu\\6-qui-prend.png","logique,réflexes",6, "qui prend, la version française de 6 nimmt!");
+		
+		jeu1=jeuSrv.create(jeu1);
+		client1=clientSrv.save(client1);
+		table1=tableSrv.create(table1);
+		
+		Reservation resa1 = new Reservation(LocalDate.parse("2023-02-22"),LocalTime.parse("10:00:00"),4,table1,client1,jeu1);
 		//System.out.println(resa1.toString());
 		resaSrv.create(resa1);
 	}
@@ -54,10 +79,27 @@ class ReservationServiceTest {
 	void deleteReservationTest() {
 		Client client1 = new Client("client1@test.fr","client1","client1","client2","0600000001",Civilite.homme);
 		TableBar table1 = new TableBar(4,1);
+		client1=clientSrv.save(client1);
+		table1=tableSrv.create(table1);
 		Reservation resa1 = new Reservation(LocalDate.parse("2023-02-22"),LocalTime.parse("10:00:00"),4,table1,client1);
 		resaSrv.create(resa1);
 		assertNotNull(resaSrv.findById(resa1.getId()));
 		resaSrv.delete(resa1);
+	}
+	
+	@Test
+	void updateReservationTest() {
+		Client client1 = new Client("client1@test.fr","client1","client1","client2","0600000001",Civilite.homme);
+		TableBar table1 = new TableBar(4,1);
+		Jeu jeu1 = new Jeu("6 qui prend !",2,10,10,20,"Gigamic","2007",14.9,"\\Projet_Final\\bdd\\image_jeu\\6-qui-prend.png","logique,réflexes",6, "qui prend, la version française de 6 nimmt!");
+		
+		jeu1=jeuSrv.create(jeu1);
+		client1=clientSrv.save(client1);
+		table1=tableSrv.create(table1);
+		Reservation resaCreate = new Reservation(LocalDate.parse("2023-02-22"),LocalTime.parse("10:00:00"),4,table1,client1);
+		resaCreate = resaSrv.create(resaCreate);
+		Reservation resaUpdate = new Reservation(resaCreate.getId(),LocalDate.parse("2023-02-22"),LocalTime.parse("10:00:00"),4,table1,client1,jeu1);
+		resaSrv.update(resaUpdate);
 	}
 	
 	@Test
@@ -99,5 +141,55 @@ class ReservationServiceTest {
 		List<LocalTime> heuresDisable = resaSrv.findAllDisableHeureparDate(4);
 		System.out.println(heuresDisable);
 	}
+	
+	@Test
+	void findByIdThrowsTest() {
+		assertThrows(IdException.class, () -> {
+			resaSrv.findById(1);
+		});
+	}
 
+	@Test
+	void checkConstraintThrowsTest() {
+		
+		assertThrows(ReservationException.class, () -> {
+			Client client1 = new Client("client1@test.fr","client1","client1","client2","0600000001",Civilite.homme);
+			client1=clientSrv.save(client1);
+			resaSrv.create(new Reservation(LocalDate.parse("2023-02-22"),LocalTime.parse("10:00:00"),4,null,client1));
+		});
+		assertThrows(ReservationException.class, () -> {
+			TableBar table1 = new TableBar(4,1);
+			table1=tableSrv.create(table1);
+			resaSrv.create(new Reservation(LocalDate.parse("2023-02-22"),LocalTime.parse("10:00:00"),4,table1,null));
+		});
+		assertThrows(ReservationException.class, () -> {
+			Client client1 = new Client("client1@test.fr","client1","client1","client2","0600000001",Civilite.homme);
+			client1=clientSrv.save(client1);
+			TableBar table1 = new TableBar(4,1);
+			table1=tableSrv.create(table1);
+			resaSrv.create(new Reservation(LocalDate.parse("2023-02-22"),LocalTime.parse("10:00:00"),0,table1,client1));
+		});
+		assertThrows(ReservationException.class, () -> {
+			Client client1 = new Client("client1@test.fr","client1","client1","client2","0600000001",Civilite.homme);
+			client1=clientSrv.save(client1);
+			TableBar table1 = new TableBar(4,1);
+			table1=tableSrv.create(table1);
+			resaSrv.create(new Reservation(LocalDate.parse("2023-02-22"),null,4,table1,client1));
+		});
+		assertThrows(ReservationException.class, () -> {
+			Client client1 = new Client("client1@test.fr","client1","client1","client2","0600000001",Civilite.homme);
+			client1=clientSrv.save(client1);
+			TableBar table1 = new TableBar(4,1);
+			table1=tableSrv.create(table1);
+			resaSrv.create(new Reservation(null,LocalTime.parse("10:00:00"),4,table1,client1));
+		});
+	}
+	
+	@Test
+	void checkNotNullThrowsTest() {
+		
+		assertThrows(ReservationException.class, () -> {
+			resaSrv.create(null);
+		});
+	}
 }

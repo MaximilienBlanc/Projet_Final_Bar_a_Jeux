@@ -38,6 +38,7 @@ public class ReservationService {
 		
 		private void checkNotNull(Reservation resa) {
 			if (resa == null) {
+				System.out.println("réservation obligatoire");
 				throw new ReservationException("réservation obligatoire");
 			}
 		}
@@ -56,6 +57,7 @@ public class ReservationService {
 				throw new ReservationException("personne obligatoire");
 			}
 			if (resa.getTable() == null) {
+				System.out.println("table obligatoire");
 				throw new ReservationException("table obligatoire");
 			}
 			// donner un jeu n'est pas obligatoire
@@ -100,7 +102,7 @@ public class ReservationService {
 		
 		public Reservation findById(Integer id) {
 			checkId(id);
-			return resaRepo.findById(id).orElseThrow(ReservationException::new);
+			return resaRepo.findById(id).orElseThrow(IdException::new);
 		}
 		
 		public List<Reservation> findAll(){
