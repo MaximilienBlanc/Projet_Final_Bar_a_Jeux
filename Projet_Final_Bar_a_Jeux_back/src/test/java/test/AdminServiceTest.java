@@ -87,7 +87,7 @@ public class AdminServiceTest {
 		IdException thrown1= assertThrows(IdException.class, () -> {
 			adminSrv.findById(null);
 		});
-		assertTrue(thrown1.getMessage().contentEquals("id obligatoire"));
+		assertTrue(thrown1.getMessage().contentEquals("id inconnu"));
 	}
 	
 	@Test

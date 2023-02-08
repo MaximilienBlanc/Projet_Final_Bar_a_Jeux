@@ -151,7 +151,7 @@ public class ClientServiceTest {
 		IdException thrown1= assertThrows(IdException.class, () -> {
 			clientSrv.findById(null);
 		});
-		assertTrue(thrown1.getMessage().contentEquals("id obligatoire"));
+		assertTrue(thrown1.getMessage().contentEquals("id inconnu"));
 	}
 
 	@Test
