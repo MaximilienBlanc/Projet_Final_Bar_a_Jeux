@@ -40,7 +40,10 @@ public class TableService {
 		
 		private void checkId(Integer id) {
 			if (id == null) {
-				throw new IdException();
+				throw new IdException("id obligatoire");
+			}
+			if (!findAllId().contains(id)) {
+				throw new IdException("id introuvable");
 			}
 		}
 
@@ -66,9 +69,9 @@ public class TableService {
 			tableEnBase.setIdTable(tableBar.getIdTable());
 			tableEnBase.setNbPersonne(tableBar.getNbPersonne());
 			// donner un jeu n'est pas obligatoire
-			if (tableBar.getEvenement() != null) {
-				tableEnBase.setEvenement(tableBar.getEvenement());
-			}
+//			if (tableBar.getEvenement() != null) {
+//				tableEnBase.setEvenement(tableBar.getEvenement());
+//			}
 			return tableRepo.save(tableEnBase);
 		}
 		
@@ -79,6 +82,11 @@ public class TableService {
 		
 		public List<TableBar> findAll(){
 			return tableRepo.findAll();
+		}
+		
+
+		public List<Integer> findAllId(){
+			return tableRepo.findAllId();
 		}
 
 }

@@ -67,6 +67,9 @@ public class ReservationService {
 			if (id == null) {
 				throw new IdException("id obligatoire");
 			}
+			if (!findAllId().contains(id)) {
+				throw new IdException("id introuvable");
+			}
 		}
 
 		private void checkExist(Reservation resa) {
@@ -103,6 +106,10 @@ public class ReservationService {
 		public Reservation findById(Integer id) {
 			checkId(id);
 			return resaRepo.findById(id).orElseThrow(IdException::new);
+		}
+		
+		public List<Integer> findAllId(){
+			return resaRepo.findAllId();
 		}
 		
 		public List<Reservation> findAll(){
