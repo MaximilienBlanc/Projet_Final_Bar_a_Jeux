@@ -35,10 +35,10 @@ public class AdminService {
 	}
 	
 	private void checkConstraint(Admin compteAdmin) {
-		if (compteAdmin.getMail() == null) {
+		if (compteAdmin.getMail() == null || compteAdmin.getMail().isBlank()) {
 			throw new AdminException("mail obligatoire");
 		}
-		if (compteAdmin.getPassword() == null) {
+		if (compteAdmin.getPassword() == null || compteAdmin.getPassword().isBlank()) {
 			throw new AdminException("mot de passe obligatoire");
 		}
 	}

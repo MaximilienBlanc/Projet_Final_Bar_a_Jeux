@@ -1,5 +1,6 @@
 package service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,13 @@ public class ClientService {
 	@Autowired 
 	private IClientRepository clientRepo;
 	
-	public Client create(String mail, String password, String nom, String prenom, String tel, Civilite civilite) {
+	public Client createLessBirthday(String mail, String password, String nom, String prenom, String tel, Civilite civilite) {
 		Client compteClient = new Client(mail, password, nom, prenom, tel, civilite);
+		return save(compteClient);
+	}
+	
+	public Client createWithBirthday(String mail, String password, String nom, String prenom, String tel, Civilite civilite, LocalDate dateNaissance) {
+		Client compteClient = new Client(mail, password, nom, prenom, tel, civilite, dateNaissance);
 		return save(compteClient);
 	}
 	
@@ -28,7 +34,7 @@ public class ClientService {
 		return clientRepo.save(compteClient);
 	}
 	
-	private void checkNotNull(Client compteClient) {
+	public void checkNotNull(Client compteClient) {
 		if (compteClient == null) {
 			throw new ClientException("compte client obligatoire");
 		}
@@ -50,7 +56,7 @@ public class ClientService {
 		if (compteClient.getTel() == null || compteClient.getTel().isBlank()) {
 			throw new ClientException("téléphone obligatoire");
 		}
-		if (compteClient.getCivilite() == null || compteClient.getTel().isBlank()) {
+		if (compteClient.getCivilite() == null) {
 			throw new ClientException("civilite obligatoire");
 		}
 	}
