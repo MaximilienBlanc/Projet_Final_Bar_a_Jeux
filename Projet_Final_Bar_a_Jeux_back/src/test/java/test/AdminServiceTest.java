@@ -17,6 +17,7 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import config.AppConfig;
 import exception.AdminException;
+import exception.IdException;
 import model.Admin;
 import service.AdminService;
 
@@ -81,6 +82,14 @@ public class AdminServiceTest {
 		assertTrue(thrown2.getMessage().contentEquals("mot de passe obligatoire"));
 	}
 
+	@Test
+	void findByIdThrowsTest() {
+		IdException thrown1= assertThrows(IdException.class, () -> {
+			adminSrv.findById(null);
+		});
+		assertTrue(thrown1.getMessage().contentEquals("id obligatoire"));
+	}
+	
 	@Test
 	void deleteAdminTest() {
 		Admin admin7 = new Admin("admin7@test.fr","admin7");
