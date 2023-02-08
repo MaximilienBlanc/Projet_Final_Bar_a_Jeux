@@ -3,6 +3,7 @@ package test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,23 +51,26 @@ public class AdminServiceTest {
 	@Test
 	void checkNotNullTest() {
 		Admin admin4 = null;
-		assertThrows(AdminException.class, () -> {
+		AdminException thrown = assertThrows(AdminException.class, () -> {
 			adminSrv.checkNotNull(admin4);
 		});
+		assertTrue(thrown.getMessage().contentEquals("compte admin obligatoire"));
 	}
 
 	@Test
 	void checkConstraintMailTest() {
-		assertThrows(AdminException.class, () -> {
+		AdminException thrown = assertThrows(AdminException.class, () -> {
 			adminSrv.save(new Admin(null, "admin5"));
 		});
+		assertTrue(thrown.getMessage().contentEquals("mail obligatoire"));
 	}
 
 	@Test
 	void checkConstraintPasswordTest() {
-		assertThrows(AdminException.class, () -> {
+		AdminException thrown = assertThrows(AdminException.class, () -> {
 			adminSrv.save(new Admin("admin6@test.fr", null));
 		});
+		assertTrue(thrown.getMessage().contentEquals("mot de passe obligatoire"));
 	}
 
 	@Test
