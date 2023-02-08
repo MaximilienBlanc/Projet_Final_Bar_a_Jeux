@@ -194,25 +194,25 @@ class ReservationServiceTest {
 			resaSrv.create(new Reservation(LocalDate.parse("2024-02-22"),LocalTime.parse("10:00:00"),4,table1,null));
 		});
 		ReservationException thrown3= assertThrows(ReservationException.class, () -> {
-			Client client1 = new Client("client1@test.fr","client1","client1","client1","0600000001",Civilite.homme);
-			client1=clientSrv.save(client1);
+			Client client2 = new Client("client2@test.fr","client2","client2","client2","0600000002",Civilite.homme);
+			client2=clientSrv.save(client2);
 			TableBar table1 = new TableBar(4,1);
 			table1=tableSrv.create(table1);
-			resaSrv.create(new Reservation(LocalDate.parse("2024-02-22"),LocalTime.parse("10:00:00"),0,table1,client1));
+			resaSrv.create(new Reservation(LocalDate.parse("2024-02-22"),LocalTime.parse("10:00:00"),0,table1,client2));
 		});
 		ReservationException thrown4= assertThrows(ReservationException.class, () -> {
-			Client client1 = new Client("client1@test.fr","client1","client1","client1","0600000001",Civilite.homme);
-			client1=clientSrv.save(client1);
+			Client client3 = new Client("client3@test.fr","client3","client3","client3","0600000003",Civilite.homme);
+			client3=clientSrv.save(client3);
 			TableBar table1 = new TableBar(4,1);
 			table1=tableSrv.create(table1);
-			resaSrv.create(new Reservation(LocalDate.parse("2024-02-22"),null,4,table1,client1));
+			resaSrv.create(new Reservation(LocalDate.parse("2024-02-22"),null,4,table1,client3));
 		});
 		ReservationException thrown5= assertThrows(ReservationException.class, () -> {
-			Client client1 = new Client("client1@test.fr","client1","client1","client1","0600000001",Civilite.homme);
-			client1=clientSrv.save(client1);
+			Client client4 = new Client("client4@test.fr","client4","client4","client4","0600000004",Civilite.homme);
+			client4=clientSrv.save(client4);
 			TableBar table1 = new TableBar(4,1);
 			table1=tableSrv.create(table1);
-			resaSrv.create(new Reservation(null,LocalTime.parse("10:00:00"),4,table1,client1));
+			resaSrv.create(new Reservation(null,LocalTime.parse("10:00:00"),4,table1,client4));
 		});
 		
 		assertTrue(thrown1.getMessage().contentEquals("table obligatoire"));
