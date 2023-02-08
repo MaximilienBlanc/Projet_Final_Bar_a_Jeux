@@ -28,17 +28,17 @@ public class AdminService {
 		return adminRepo.save(compteAdmin);
 	}
 	
-	private void checkNotNull(Admin compteAdmin) {
+	public void checkNotNull(Admin compteAdmin) {
 		if (compteAdmin == null) {
 			throw new AdminException("compte admin obligatoire");
 		}
 	}
 	
 	private void checkConstraint(Admin compteAdmin) {
-		if (compteAdmin.getMail() == null) {
+		if (compteAdmin.getMail() == null || compteAdmin.getMail().isBlank()) {
 			throw new AdminException("mail obligatoire");
 		}
-		if (compteAdmin.getPassword() == null) {
+		if (compteAdmin.getPassword() == null || compteAdmin.getPassword().isBlank()) {
 			throw new AdminException("mot de passe obligatoire");
 		}
 	}

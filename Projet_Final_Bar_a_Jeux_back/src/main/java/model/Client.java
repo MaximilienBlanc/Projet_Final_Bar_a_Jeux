@@ -40,6 +40,24 @@ public class Client extends Compte {
 		this.tel = tel;
 		this.civilite = civilite;
 	}
+	
+	public Client(String mail, String password, String nom, String prenom, String tel, Civilite civilite, LocalDate dateNaissance) {
+		super(mail, password);
+		this.nom = nom;
+		this.prenom = prenom;
+		this.tel = tel;
+		this.civilite = civilite;
+		this.dateNaissance = dateNaissance;
+	}
+	
+	public Client(Integer id, String mail, String password, String nom, String prenom, String tel, Civilite civilite, LocalDate dateNaissance) {
+		super(id, mail, password);
+		this.nom = nom;
+		this.prenom = prenom;
+		this.tel = tel;
+		this.civilite = civilite;
+		this.dateNaissance = dateNaissance;
+	}
 
 	public String getNom() {
 		return nom;

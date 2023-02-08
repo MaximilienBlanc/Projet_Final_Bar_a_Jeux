@@ -57,9 +57,10 @@ class ReservationServiceTest {
 		TableBar table1 = new TableBar(4,1);
 		client1=clientSrv.save(client1);
 		table1=tableSrv.create(table1);
-		Reservation resa1 = new Reservation(LocalDate.parse("2023-02-22"),LocalTime.parse("10:00:00"),4,table1,client1);
+		Reservation resa1 = new Reservation(LocalDate.parse("2024-02-22"),LocalTime.parse("10:00:00"),4,table1,client1);
 		//System.out.println(resa1.toString());
-		resaSrv.create(resa1);
+		resa1 = resaSrv.create(resa1);
+		assertEquals(resa1.getId(), resaSrv.findById(resa1.getId()).getId());
 	}
 	
 	@Test
@@ -72,9 +73,10 @@ class ReservationServiceTest {
 		client1=clientSrv.save(client1);
 		table1=tableSrv.create(table1);
 		
-		Reservation resa1 = new Reservation(LocalDate.parse("2023-02-22"),LocalTime.parse("10:00:00"),4,table1,client1,jeu1);
+		Reservation resa1 = new Reservation(LocalDate.parse("2024-02-22"),LocalTime.parse("10:00:00"),4,table1,client1,jeu1);
 		//System.out.println(resa1.toString());
-		resaSrv.create(resa1);
+		resa1 = resaSrv.create(resa1);
+		assertEquals(resa1.getId(), resaSrv.findById(resa1.getId()).getId());
 	}
 
 	@Test
@@ -83,13 +85,14 @@ class ReservationServiceTest {
 		TableBar table1 = new TableBar(4,1);
 		client1=clientSrv.save(client1);
 		table1=tableSrv.create(table1);
-		Reservation resa1 = new Reservation(LocalDate.parse("2023-02-22"),LocalTime.parse("10:00:00"),4,table1,client1);
+		Reservation resa1 = new Reservation(LocalDate.parse("2024-02-22"),LocalTime.parse("10:00:00"),4,table1,client1);
 		resaSrv.create(resa1);
 		assertNotNull(resaSrv.findById(resa1.getId()));
 		resaSrv.delete(resa1);
-		assertThrows(IdException.class, () -> {
+		IdException thrown1= assertThrows(IdException.class, () -> {
 			resaSrv.findById(resa1.getId());
-        });
+		});
+		assertTrue(thrown1.getMessage().contentEquals("id introuvable"));
 	}
 	
 	@Test
@@ -98,13 +101,15 @@ class ReservationServiceTest {
 		TableBar table1 = new TableBar(4,1);
 		client1=clientSrv.save(client1);
 		table1=tableSrv.create(table1);
-		Reservation resa1 = new Reservation(LocalDate.parse("2023-02-22"),LocalTime.parse("10:00:00"),4,table1,client1);
+		Reservation resa1 = new Reservation(LocalDate.parse("2024-02-22"),LocalTime.parse("10:00:00"),4,table1,client1);
 		resaSrv.create(resa1);
 		assertNotNull(resaSrv.findById(resa1.getId()));
 		resaSrv.delete(resa1.getId());
-		assertThrows(IdException.class, () -> {
+		IdException thrown1= assertThrows(IdException.class, () -> {
 			resaSrv.findById(resa1.getId());
-        });
+		});
+		//System.out.println(thrown1.getMessage());
+		assertTrue(thrown1.getMessage().contentEquals("id introuvable"));
 	}
 	
 	@Test
@@ -116,10 +121,12 @@ class ReservationServiceTest {
 		jeu1=jeuSrv.create(jeu1);
 		client1=clientSrv.save(client1);
 		table1=tableSrv.create(table1);
-		Reservation resaCreate = new Reservation(LocalDate.parse("2023-02-22"),LocalTime.parse("10:00:00"),4,table1,client1);
+		Reservation resaCreate = new Reservation(LocalDate.parse("2024-02-22"),LocalTime.parse("10:00:00"),4,table1,client1);
 		resaCreate = resaSrv.create(resaCreate);
-		Reservation resaUpdate = new Reservation(resaCreate.getId(),LocalDate.parse("2023-02-22"),LocalTime.parse("10:00:00"),4,table1,client1,jeu1);
-		resaSrv.update(resaUpdate);
+		Reservation resaUpdate = new Reservation(resaCreate.getId(),LocalDate.parse("2024-02-22"),LocalTime.parse("10:00:00"),4,table1,client1,jeu1);
+		resaUpdate = resaSrv.update(resaUpdate);
+		assertEquals(resaUpdate.getJeu(), resaSrv.findById(resaUpdate.getId()).getJeu());
+		
 	}
 	
 	@Test
@@ -130,9 +137,9 @@ class ReservationServiceTest {
 		client1=clientSrv.save(client1);
 		table1=tableSrv.create(table1);
 		
-		Reservation resa1 = new Reservation(LocalDate.parse("2023-02-22"),LocalTime.parse("10:00:00"),4,table1,client1);
-		Reservation resa2 = new Reservation(LocalDate.parse("2023-02-22"),LocalTime.parse("11:00:00"),4,table1,client1);
-		Reservation resa3 = new Reservation(LocalDate.parse("2023-02-23"),LocalTime.parse("10:00:00"),4,table1,client1);
+		Reservation resa1 = new Reservation(LocalDate.parse("2024-02-22"),LocalTime.parse("10:00:00"),4,table1,client1);
+		Reservation resa2 = new Reservation(LocalDate.parse("2024-02-22"),LocalTime.parse("11:00:00"),4,table1,client1);
+		Reservation resa3 = new Reservation(LocalDate.parse("2024-02-23"),LocalTime.parse("10:00:00"),4,table1,client1);
 		
 		
 		resaSrv.create(resa1);
@@ -150,9 +157,9 @@ class ReservationServiceTest {
 		client1=clientSrv.save(client1);
 		table1=tableSrv.create(table1);
 		
-		Reservation resa1 = new Reservation(LocalDate.parse("2023-02-22"),LocalTime.parse("10:00:00"),4,table1,client1);
-		Reservation resa2 = new Reservation(LocalDate.parse("2023-02-22"),LocalTime.parse("11:00:00"),4,table1,client1);
-		Reservation resa3 = new Reservation(LocalDate.parse("2023-02-22"),LocalTime.parse("10:00:00"),4,table1,client1);
+		Reservation resa1 = new Reservation(LocalDate.parse("2024-02-22"),LocalTime.parse("10:00:00"),4,table1,client1);
+		Reservation resa2 = new Reservation(LocalDate.parse("2024-02-22"),LocalTime.parse("11:00:00"),4,table1,client1);
+		Reservation resa3 = new Reservation(LocalDate.parse("2024-02-22"),LocalTime.parse("10:00:00"),4,table1,client1);
 		
 		
 		resaSrv.create(resa1);
@@ -164,9 +171,11 @@ class ReservationServiceTest {
 	
 	@Test
 	void findByIdThrowsTest() {
-		assertThrows(IdException.class, () -> {
-			resaSrv.findById(0);
+		IdException thrown1= assertThrows(IdException.class, () -> {
+			resaSrv.findById(null);
 		});
+		//System.out.println(thrown1.getMessage());
+		assertTrue(thrown1.getMessage().contentEquals("id obligatoire"));
 	}
 
 	@Test
@@ -175,26 +184,26 @@ class ReservationServiceTest {
 		ReservationException thrown1= assertThrows(ReservationException.class, () -> {
 			Client client1 = new Client("client1@test.fr","client1","client1","client2","0600000001",Civilite.homme);
 			client1=clientSrv.save(client1);
-			resaSrv.create(new Reservation(LocalDate.parse("2023-02-22"),LocalTime.parse("10:00:00"),4,null,client1));
+			resaSrv.create(new Reservation(LocalDate.parse("2024-02-22"),LocalTime.parse("10:00:00"),4,null,client1));
 		});
 		ReservationException thrown2= assertThrows(ReservationException.class, () -> {
 			TableBar table1 = new TableBar(4,1);
 			table1=tableSrv.create(table1);
-			resaSrv.create(new Reservation(LocalDate.parse("2023-02-22"),LocalTime.parse("10:00:00"),4,table1,null));
+			resaSrv.create(new Reservation(LocalDate.parse("2024-02-22"),LocalTime.parse("10:00:00"),4,table1,null));
 		});
 		ReservationException thrown3= assertThrows(ReservationException.class, () -> {
 			Client client1 = new Client("client1@test.fr","client1","client1","client2","0600000001",Civilite.homme);
 			client1=clientSrv.save(client1);
 			TableBar table1 = new TableBar(4,1);
 			table1=tableSrv.create(table1);
-			resaSrv.create(new Reservation(LocalDate.parse("2023-02-22"),LocalTime.parse("10:00:00"),0,table1,client1));
+			resaSrv.create(new Reservation(LocalDate.parse("2024-02-22"),LocalTime.parse("10:00:00"),0,table1,client1));
 		});
 		ReservationException thrown4= assertThrows(ReservationException.class, () -> {
 			Client client1 = new Client("client1@test.fr","client1","client1","client2","0600000001",Civilite.homme);
 			client1=clientSrv.save(client1);
 			TableBar table1 = new TableBar(4,1);
 			table1=tableSrv.create(table1);
-			resaSrv.create(new Reservation(LocalDate.parse("2023-02-22"),null,4,table1,client1));
+			resaSrv.create(new Reservation(LocalDate.parse("2024-02-22"),null,4,table1,client1));
 		});
 		ReservationException thrown5= assertThrows(ReservationException.class, () -> {
 			Client client1 = new Client("client1@test.fr","client1","client1","client2","0600000001",Civilite.homme);
@@ -214,26 +223,39 @@ class ReservationServiceTest {
 	
 	@Test
 	void checkNotNullThrowsTest() {
-		
-		assertThrows(ReservationException.class, () -> {
+		ReservationException thrown1= assertThrows(ReservationException.class, () -> {
 			resaSrv.create(null);
 		});
+		assertTrue(thrown1.getMessage().contentEquals("réservation obligatoire"));
 	}
 	
 	@Test
-	void testFindAll() {
+	void findAllByClientId() {
 		Client client1 = new Client("client1@test.fr","client1","client1","client2","0600000001",Civilite.homme);
 		client1=clientSrv.save(client1);
 		TableBar table1 = new TableBar(4,1);
 		table1=tableSrv.create(table1);
-		resaSrv.create(new Reservation(LocalDate.parse("2023-02-22"),LocalTime.parse("10:00:00"),4,table1,client1));
-		resaSrv.create(new Reservation(LocalDate.parse("2023-02-23"),LocalTime.parse("10:00:00"),4,table1,client1));
+		resaSrv.create(new Reservation(LocalDate.parse("2024-02-22"),LocalTime.parse("10:00:00"),4,table1,client1));
+		resaSrv.create(new Reservation(LocalDate.parse("2024-02-23"),LocalTime.parse("10:00:00"),4,table1,client1));
 		
 		//System.out.println(resaSrv.findAllbyIdClient(client1.getId()));
 		assertEquals(2, resaSrv.findAllByClientId(client1.getId()).size());
 
 	}
 	
+	@Test
+	void findAll() {
+		Client client1 = new Client("client1@test.fr","client1","client1","client2","0600000001",Civilite.homme);
+		client1=clientSrv.save(client1);
+		TableBar table1 = new TableBar(4,1);
+		table1=tableSrv.create(table1);
+		resaSrv.create(new Reservation(LocalDate.parse("2024-02-22"),LocalTime.parse("10:00:00"),4,table1,client1));
+		resaSrv.create(new Reservation(LocalDate.parse("2024-02-23"),LocalTime.parse("10:00:00"),4,table1,client1));
+		
+		//System.out.println(resaSrv.findAllbyIdClient(client1.getId()));
+		assertEquals(2, resaSrv.findAll().size());
+
+	}
 	
 	@Test
 	void findAllByDateRes() {
@@ -241,9 +263,9 @@ class ReservationServiceTest {
 		client1=clientSrv.save(client1);
 		TableBar table1 = new TableBar(4,1);
 		table1=tableSrv.create(table1);
-		resaSrv.create(new Reservation(LocalDate.parse("2023-02-22"),LocalTime.parse("10:00:00"),4,table1,client1));
-		resaSrv.create(new Reservation(LocalDate.parse("2023-02-23"),LocalTime.parse("10:00:00"),4,table1,client1));
-		resaSrv.create(new Reservation(LocalDate.parse("2023-01-23"),LocalTime.parse("10:00:00"),4,table1,client1));
+		resaSrv.create(new Reservation(LocalDate.parse("2024-02-22"),LocalTime.parse("10:00:00"),4,table1,client1));
+		resaSrv.create(new Reservation(LocalDate.parse("2024-02-23"),LocalTime.parse("10:00:00"),4,table1,client1));
+		resaSrv.create(new Reservation(LocalDate.parse("2021-01-23"),LocalTime.parse("10:00:00"),4,table1,client1));
 		
 		List<Reservation> dateAfter=resaSrv.findAllByAfterDateRes();
 		List<Reservation> dateBefore=resaSrv.findAllByBeforeDateRes();

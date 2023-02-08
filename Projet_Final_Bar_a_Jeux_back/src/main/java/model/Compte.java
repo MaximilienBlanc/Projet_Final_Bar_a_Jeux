@@ -27,6 +27,13 @@ public abstract class Compte {
 		super();
 	}
 
+	public Compte(Integer id, String mail, String password) {
+		super();
+		this.id = id;
+		this.mail = mail;
+		this.password = password;
+	}
+	
 	public Compte(String mail, String password) {
 		super();
 		this.mail = mail;
