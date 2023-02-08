@@ -112,6 +112,7 @@ public class AdminServiceTest {
 		assertEquals(admin0.getClass(),adminSrv.findAll().get(0).getClass());		
 	}
 
+	@Test
 	void updateMailTest() {
 		Admin admin10 = new Admin("admin10@test.fr","admin10");
 		adminSrv.save(admin10);
@@ -120,6 +121,7 @@ public class AdminServiceTest {
 		assertEquals("adminUpdate@test.fr",adminUpdate.getMail());
 	}
 
+	@Test
 	void updatePasswordTest() {
 		Admin admin11 = new Admin("admin11@test.fr","admin11");
 		adminSrv.save(admin11);
