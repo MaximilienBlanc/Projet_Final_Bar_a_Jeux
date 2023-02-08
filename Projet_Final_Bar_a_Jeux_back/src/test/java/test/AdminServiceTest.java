@@ -59,10 +59,14 @@ public class AdminServiceTest {
 
 	@Test
 	void checkConstraintMailTest() {
-		AdminException thrown = assertThrows(AdminException.class, () -> {
+		AdminException thrown1 = assertThrows(AdminException.class, () -> {
 			adminSrv.save(new Admin(null, "admin5"));
 		});
-		assertTrue(thrown.getMessage().contentEquals("mail obligatoire"));
+		assertTrue(thrown1.getMessage().contentEquals("mail obligatoire"));
+		AdminException thrown2 = assertThrows(AdminException.class, () -> {
+			adminSrv.save(new Admin(" ", "admin5"));
+		});
+		assertTrue(thrown2.getMessage().contentEquals("mail obligatoire"));
 	}
 
 	@Test
@@ -71,6 +75,10 @@ public class AdminServiceTest {
 			adminSrv.save(new Admin("admin6@test.fr", null));
 		});
 		assertTrue(thrown.getMessage().contentEquals("mot de passe obligatoire"));
+		AdminException thrown2 = assertThrows(AdminException.class, () -> {
+			adminSrv.save(new Admin("admin6@test.fr", " "));
+		});
+		assertTrue(thrown2.getMessage().contentEquals("mot de passe obligatoire"));
 	}
 
 	@Test
