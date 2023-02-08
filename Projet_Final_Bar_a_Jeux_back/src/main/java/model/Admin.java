@@ -15,6 +15,8 @@ public class Admin extends Compte {
 		super(mail, password);
 	}
 
-	
+	public Admin(Integer id, String mail, String password) {
+		super(id, mail, password);
+	}
 	
 }

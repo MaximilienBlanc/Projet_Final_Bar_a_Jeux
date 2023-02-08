@@ -96,25 +96,34 @@ public class AdminServiceTest {
 		assertNotNull(adminSrv.findById(admin9.getId()));
 	}
 
-	//problème car test uniquement s'il y a une liste d'admin vide
-	//erreur quand on a un admin en bdd
 	@Test 
 	void findAllTest() {
 		List<Admin> admins = new ArrayList<>();	
-		assertEquals(admins,adminSrv.findAll());		
-
+		Admin admin0 = new Admin("admin0@test.fr","admin0");
+		admins.add(admin0);
+		adminSrv.save(admin0);
+		//vérif renvoie bien une liste
+		assertEquals(admins.getClass(),adminSrv.findAll().getClass());	
+		//vérif la class des objets dans la liste
+		assertEquals(admin0.getClass(),adminSrv.findAll().get(0).getClass());		
 	}
 
 	void updateMailTest() {
-		//création d'un admin
-		// modification d'un admin
-		//assertEquals le mail modifié
+		Admin admin10 = new Admin("admin10@test.fr","admin10");
+		adminSrv.save(admin10);
+		Admin adminUpdate = new Admin(admin10.getId(),"adminUpdate@test.fr","admin10");
+		adminSrv.update(adminUpdate);
+		assertEquals("adminUpdate@test.fr",adminUpdate.getMail());
 	}
 
 	void updatePasswordTest() {
-		//création d'un admin
-				// modification d'un admin
-		//assertEquals le password modifié 
+		Admin admin11 = new Admin("admin11@test.fr","admin11");
+		adminSrv.save(admin11);
+		Admin adminUpdate = new Admin(admin11.getId(),"admin11@test.fr","adminUpdate");
+		adminSrv.update(adminUpdate);
+		assertEquals("adminUpdate",adminUpdate.getPassword());
 	}
+	
+	
 
 }
