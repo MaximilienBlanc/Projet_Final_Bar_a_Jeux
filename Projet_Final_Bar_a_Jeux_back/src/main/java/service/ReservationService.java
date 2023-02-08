@@ -116,6 +116,7 @@ public class ReservationService {
 			return resaRepo.findAll();
 		}
 		
+		//Cettte fonction renvoi toutes les dates completes (plus de réservation) pour un nombre de personne précis
 		public List<LocalDate> findAllDisableDate(int nbPersonne){
 			Collection<LocalDate> dates = resaRepo.findAllDate(nbPersonne);
 //			System.out.println("bean "+resaMaxJour);
@@ -133,8 +134,9 @@ public class ReservationService {
 			return dateDisables;
 		}
 
-		public List<LocalTime> findAllDisableHeureparDate(int nbPersonne){
-			Collection<LocalTime> heures = resaRepo.findAllCrenauParDate(nbPersonne);
+		// Cette fonction renvoie tous les crénaux complets pour une journée précise et un nombre de personne précis
+		public List<LocalTime> findAllDisableHeureparDate(int nbPersonne, LocalDate dates){
+			Collection<LocalTime> heures = resaRepo.findAllCrenauParDate(nbPersonne,dates);
 //			List<LocalDate> dateUnique = resaRepo.findUniqueDate(nbPersonne);
 			// récupération des valeurs uniques des dates dans la variable dates provenant de l'ensemble des réservations
 			List<LocalTime> heureUnique = heures.stream().distinct().collect(Collectors.toList());
@@ -149,16 +151,25 @@ public class ReservationService {
 			return heureDisables;
 		}
 		
+		// Cette fonction renvoie la liste des réservations d'un client (par son id)
 		public List<Reservation> findAllByClientId(Integer id){
 			return resaRepo.findAllByClientId(id);
 		}
 		
-		public List<Reservation> findAllByAfterDateRes (){
-			return resaRepo.findAllByAfterDateRes(LocalDate.now());
+		// Cette fonction renvoie la liste des réservations suivantes d'un client (par son id)
+		public List<Reservation> findAllByAfterDateRes (Integer id){
+			return resaRepo.findAllByAfterDateRes(LocalDate.now(), id);
 		}
 		
-		public List<Reservation> findAllByBeforeDateRes (){
-			return resaRepo.findAllByBeforeDateRes(LocalDate.now());
+		// Cette fonction renvoie la liste des réservations passées d'un client (par son id)
+		public List<Reservation> findAllByBeforeDateRes (Integer id){
+			return resaRepo.findAllByBeforeDateRes(LocalDate.now(), id);
+		}
+		
+		// Cette fonction renvoie la liste d'id des tables non disponible (l'attribut pas celui de la base)
+		public List<Integer> findAllIdByDateResandHeureRes (LocalDate date,LocalTime heure){
+			List<Integer> idTableDisable = resaRepo.findAllIdByDateResandHeureRes(date, heure);
+			return idTableDisable;
 		}
 
 }

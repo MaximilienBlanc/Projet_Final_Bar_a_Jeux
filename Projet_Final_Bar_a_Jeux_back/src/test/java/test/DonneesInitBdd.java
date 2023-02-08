@@ -24,7 +24,7 @@ import service.ReservationService;
 import service.TableService;
 
 @Transactional
-@Rollback(false)
+@Rollback
 @SpringJUnitConfig(AppConfig.class)
 class DonneesInitBdd {
 
