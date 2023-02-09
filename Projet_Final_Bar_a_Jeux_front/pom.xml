@@ -24,7 +24,7 @@
 		</dependency>
 		<dependency>
 			<groupId>formation-sopra</groupId>
-			<artifactId>quest-jpa-spring</artifactId>
+			<artifactId>ProjetFinal-back</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
