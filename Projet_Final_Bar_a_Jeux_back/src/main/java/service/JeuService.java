@@ -95,7 +95,7 @@ public class JeuService {
 		
 		public Jeu findById(Integer id) {
 			checkId(id);
-			return jeuRepo.findById(id).orElseThrow(JeuException::new);
+			return jeuRepo.findById(id).orElseThrow(IdException::new);
 		}
 		
 		public List<Jeu> findAll(){

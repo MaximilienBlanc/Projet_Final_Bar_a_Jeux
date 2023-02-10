@@ -64,7 +64,7 @@ public class CommandeJeuService {
 		
 		public CommandeJeu findById(Integer id) {
 			checkId(id);
-			return commandeJeuRepo.findById(id).orElseThrow(CommandeJeuException::new);
+			return commandeJeuRepo.findById(id).orElseThrow(IdException::new);
 		}
 		
 		public List<CommandeJeu> findAll(){

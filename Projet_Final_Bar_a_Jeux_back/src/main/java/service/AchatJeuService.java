@@ -65,7 +65,7 @@ public class AchatJeuService {
 		
 		public AchatJeu findById(Integer id) {
 			checkId(id);
-			return achatJeuRepo.findById(id).orElseThrow(AchatJeuException::new);
+			return achatJeuRepo.findById(id).orElseThrow(IdException::new);
 		}
 		
 		public List<AchatJeu> findAll(){
