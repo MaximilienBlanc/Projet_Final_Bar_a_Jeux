@@ -18,6 +18,7 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import config.AppConfig;
 import exception.ClientException;
+import exception.IdException;
 import model.Admin;
 import model.Civilite;
 import model.Client;
@@ -144,6 +145,14 @@ public class ClientServiceTest {
 		});
 		assertTrue(thrown.getMessage().contentEquals("civilite obligatoire"));
 	}	
+	
+	@Test
+	void findByIdThrowsTest() {
+		IdException thrown1= assertThrows(IdException.class, () -> {
+			clientSrv.findById(null);
+		});
+		assertTrue(thrown1.getMessage().contentEquals("id inconnu"));
+	}
 
 	@Test
 	void deleteClientTest() {

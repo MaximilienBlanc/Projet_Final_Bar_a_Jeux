@@ -19,17 +19,20 @@ public interface IReservationRepository extends JpaRepository<Reservation, Integ
 //	@Query("select r.dateRes from Reservation r WHERE r.tableBar.nbPersonne=:nbPers GROUP BY r.dateResa")
 //	List<LocalDate> findUniqueDate(@Param("nbPers") int nbPersonne);
 	
-	@Query("select r.heureRes from Reservation r WHERE r.tableBar.nbPersonne=:nbPers")
-	Collection<LocalTime> findAllCrenauParDate(@Param("nbPers") int nbPersonne);
+	@Query("select r.heureRes from Reservation r WHERE r.tableBar.nbPersonne=:nbPers and r.dateRes=:dateRes")
+	Collection<LocalTime> findAllCrenauParDate(@Param("nbPers") int nbPersonne, @Param("dateRes") LocalDate dateRes);
 	
 	List<Reservation> findAllByClientId(Integer id);
 	
 	@Query("select r.id from Reservation r")
 	List<Integer> findAllId();
 	
-	@Query("select r from Reservation r WHERE r.dateRes>=:dateRes")
-	List<Reservation> findAllByAfterDateRes(@Param("dateRes") LocalDate dateRes);
+	@Query("select r from Reservation r WHERE r.dateRes>=:dateRes and r.client.id=:idClient")
+	List<Reservation> findAllByAfterDateRes(@Param("dateRes") LocalDate dateRes,@Param("idClient") Integer idClient);
 
-	@Query("select r from Reservation r WHERE r.dateRes<:dateRes")
-	List<Reservation> findAllByBeforeDateRes(@Param("dateRes") LocalDate dateRes);
+	@Query("select r from Reservation r WHERE r.dateRes<:dateRes and r.client.id=:idClient")
+	List<Reservation> findAllByBeforeDateRes(@Param("dateRes") LocalDate dateRes,@Param("idClient") Integer idClient);
+	
+	@Query("select r.tableBar.idTable from Reservation r WHERE r.dateRes=:dateRes and r.heureRes=:heureRes")
+	List<Integer> findAllIdByDateResandHeureRes(@Param("dateRes") LocalDate dateRes,@Param("heureRes") LocalTime heureRes);
 }

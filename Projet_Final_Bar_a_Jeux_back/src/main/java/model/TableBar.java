@@ -18,7 +18,7 @@ public class TableBar {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 	@ManyToOne
 	@JoinColumn(name = "event_id")
 	private Evenement evenement;
@@ -51,12 +51,12 @@ public class TableBar {
 
 
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
