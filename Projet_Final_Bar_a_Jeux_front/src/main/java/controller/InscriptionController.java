@@ -20,7 +20,7 @@ public class InscriptionController {
 	@Autowired
 	private ClientService clientSrv;
 	
-	@GetMapping("/inscription")
+	@GetMapping("")
 	public String inscription(Model model) {
 		return goForm(model, new Client());
 	}
