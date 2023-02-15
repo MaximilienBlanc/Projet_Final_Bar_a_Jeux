@@ -29,13 +29,26 @@ public class AchatJeu {
 		super();
 	}
 
-	public AchatJeu(LocalDate dateAchat, int quantite) {
+	
+	public AchatJeu(LocalDate dateAchat, int quantite, Jeu jeu, CommandeJeu commandeJeu) {
 		super();
 		this.dateAchat = dateAchat;
 		this.quantite = quantite;
+		this.jeu = jeu;
+		this.commandeJeu = commandeJeu;
+	}
+	
+
+	public AchatJeu(int id, LocalDate dateAchat, int quantite, Jeu jeu, CommandeJeu commandeJeu) {
+		super();
+		this.id = id;
+		this.dateAchat = dateAchat;
+		this.quantite = quantite;
+		this.jeu = jeu;
+		this.commandeJeu = commandeJeu;
 	}
 
-	
+
 	public int getId() {
 		return id;
 	}

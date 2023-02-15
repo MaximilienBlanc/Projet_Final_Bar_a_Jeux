@@ -3,14 +3,13 @@ package service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import exception.CommandeJeuException;
 import exception.IdException;
-import exception.JeuException;
 import model.CommandeJeu;
-import model.Statut;
 import repository.ICommandeJeuRepository;
-
+@Service
 public class CommandeJeuService {
 
 	@Autowired
@@ -31,8 +30,14 @@ public class CommandeJeuService {
 		
 		private void checkConstraint(CommandeJeu commandeJeu) {
 			// Statut a faire valider
-			if (commandeJeu.getStatut() == null || !(commandeJeu.getStatut().equals(Statut.EnCours) || commandeJeu.getStatut().equals(Statut.Validee) || commandeJeu.getStatut().equals(Statut.Livree))) {
-				throw new CommandeJeuException("statut correcte obligatoire");
+			if (commandeJeu.getStatut() == null) { //|| !(commandeJeu.getStatut().equals(Statut.EnCours) || commandeJeu.getStatut().equals(Statut.Validee) || commandeJeu.getStatut().equals(Statut.Livree))) {
+				throw new CommandeJeuException("statut obligatoire");
+			}
+			if (commandeJeu.getClient() == null) {
+				throw new CommandeJeuException("client obligatoire");
+			}
+			if (commandeJeu.getAchatJeux() == null) {
+				throw new CommandeJeuException("achatJeux obligatoire");
 			}
 		}
 		
@@ -58,7 +63,7 @@ public class CommandeJeuService {
 		
 		public CommandeJeu findById(Integer id) {
 			checkId(id);
-			return commandeJeuRepo.findById(id).orElseThrow(CommandeJeuException::new);
+			return commandeJeuRepo.findById(id).orElseThrow(IdException::new);
 		}
 		
 		public List<CommandeJeu> findAll(){
@@ -72,14 +77,9 @@ public class CommandeJeuService {
 			checkConstraint(commandeJeu);
 			CommandeJeu commandeJeuEnBase = findById(commandeJeu.getId());
 			commandeJeuEnBase.setStatut(commandeJeuEnBase.getStatut());
-			// client pas obligatoire a discuter
-			if (commandeJeuEnBase.getClient() != null) {
-				commandeJeuEnBase.setClient(commandeJeuEnBase.getClient());
-			}
-			// achatJeux pas obligatoire a discuter
-			if (commandeJeuEnBase.getAchatJeux() != null) {
-				commandeJeuEnBase.setAchatJeux(commandeJeuEnBase.getAchatJeux());
-			}
+			commandeJeuEnBase.setClient(commandeJeuEnBase.getClient());
+			commandeJeuEnBase.setAchatJeux(commandeJeuEnBase.getAchatJeux());
+			
 			return commandeJeuRepo.save(commandeJeuEnBase);
 		}
 	

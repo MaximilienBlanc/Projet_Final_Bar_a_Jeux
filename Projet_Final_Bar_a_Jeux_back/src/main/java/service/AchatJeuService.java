@@ -3,13 +3,14 @@ package service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import exception.AchatJeuException;
 import exception.IdException;
-import exception.JeuException;
 import model.AchatJeu;
 import repository.IAchatJeuRepository;
 
+@Service
 public class AchatJeuService {
 
 	@Autowired
@@ -33,7 +34,13 @@ public class AchatJeuService {
 				throw new AchatJeuException("date d'achat obligatoire");
 			}
 			if (achatJeu.getQuantite() < 0) {
-				throw new JeuException("saisir quantité positive");
+				throw new AchatJeuException("saisir quantité positive");
+			}
+			if (achatJeu.getJeu() == null) {
+				throw new AchatJeuException("saisir un objet jeu");
+			}
+			if (achatJeu.getCommandeJeu() == null) {
+				throw new AchatJeuException("saisir un objet commandeJeu");
 			}
 		}
 		
@@ -59,7 +66,7 @@ public class AchatJeuService {
 		
 		public AchatJeu findById(Integer id) {
 			checkId(id);
-			return achatJeuRepo.findById(id).orElseThrow(AchatJeuException::new);
+			return achatJeuRepo.findById(id).orElseThrow(IdException::new);
 		}
 		
 		public List<AchatJeu> findAll(){
@@ -72,16 +79,11 @@ public class AchatJeuService {
 			checkExist(achatJeu);
 			checkConstraint(achatJeu);
 			AchatJeu achatJeuEnBase = findById(achatJeu.getId());
-			achatJeuEnBase.setDateAchat(achatJeuEnBase.getDateAchat());
-			achatJeuEnBase.setQuantite(achatJeuEnBase.getQuantite());
-			// jeu pas obligatoire a discuter
-			if (achatJeuEnBase.getJeu() != null) {
-				achatJeuEnBase.setJeu(achatJeuEnBase.getJeu());
-			}
-			// commande pas obligatoire a discuter
-			if (achatJeuEnBase.getCommandeJeu() != null) {
-				achatJeuEnBase.setCommandeJeu(achatJeuEnBase.getCommandeJeu());
-			}
+			achatJeuEnBase.setDateAchat(achatJeu.getDateAchat());
+			achatJeuEnBase.setQuantite(achatJeu.getQuantite());
+			achatJeuEnBase.setJeu(achatJeu.getJeu());
+			achatJeuEnBase.setCommandeJeu(achatJeu.getCommandeJeu());
+			
 			return achatJeuRepo.save(achatJeuEnBase);
 		}
 	
