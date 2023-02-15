@@ -3,14 +3,13 @@ package service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import exception.CommandeJeuException;
 import exception.IdException;
-import exception.JeuException;
 import model.CommandeJeu;
-import model.Statut;
 import repository.ICommandeJeuRepository;
-
+@Service
 public class CommandeJeuService {
 
 	@Autowired

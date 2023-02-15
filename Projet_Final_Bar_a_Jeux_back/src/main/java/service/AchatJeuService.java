@@ -3,13 +3,14 @@ package service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import exception.AchatJeuException;
 import exception.IdException;
-import exception.JeuException;
 import model.AchatJeu;
 import repository.IAchatJeuRepository;
 
+@Service
 public class AchatJeuService {
 
 	@Autowired
@@ -78,10 +79,10 @@ public class AchatJeuService {
 			checkExist(achatJeu);
 			checkConstraint(achatJeu);
 			AchatJeu achatJeuEnBase = findById(achatJeu.getId());
-			achatJeuEnBase.setDateAchat(achatJeuEnBase.getDateAchat());
-			achatJeuEnBase.setQuantite(achatJeuEnBase.getQuantite());
-			achatJeuEnBase.setJeu(achatJeuEnBase.getJeu());
-			achatJeuEnBase.setCommandeJeu(achatJeuEnBase.getCommandeJeu());
+			achatJeuEnBase.setDateAchat(achatJeu.getDateAchat());
+			achatJeuEnBase.setQuantite(achatJeu.getQuantite());
+			achatJeuEnBase.setJeu(achatJeu.getJeu());
+			achatJeuEnBase.setCommandeJeu(achatJeu.getCommandeJeu());
 			
 			return achatJeuRepo.save(achatJeuEnBase);
 		}

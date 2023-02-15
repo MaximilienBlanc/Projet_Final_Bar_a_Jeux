@@ -13,10 +13,10 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import config.AppConfig;
-import exception.AdminException;
+
 import exception.IdException;
 import exception.JeuException;
-import model.Admin;
+
 import model.Jeu;
 import service.JeuService;
 

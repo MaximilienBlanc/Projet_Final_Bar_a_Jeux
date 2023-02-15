@@ -34,15 +34,21 @@ public class CommandeJeu {
 	public CommandeJeu() {
 		super();
 	}
-	
-	
 
-	public CommandeJeu(Statut statut) {
+	public CommandeJeu(Statut statut, Client client) {
 		super();
 		this.statut = statut;
+		this.client = client;
 	}
 
 
+
+	public CommandeJeu(int id, Statut statut, Client client) {
+		super();
+		this.id = id;
+		this.statut = statut;
+		this.client = client;
+	}
 
 	public int getId() {
 		return id;
